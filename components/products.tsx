@@ -19,13 +19,13 @@ export default function Products() {
         <div className="flex gap-32  items-center justify-between px-60 my-10">
           <img
             src="/white.webp"
-            className="rounded-md w-48 h-48 bg-grayback"></img>
+            className="w-48 h-48 bg-grayback shadow"></img>
           <img
             src="/controller.webp"
-            className="rounded-md w-80 h-80 bg-grayback"></img>
+            className="w-80 h-80 bg-grayback shadow"></img>
           <img
             src="/dark.webp"
-            className="rounded-md w-48 h-48 bg-grayback"></img>
+            className="w-48 h-48 bg-grayback shadow"></img>
         </div>
         <button className="bg-orange w-fit p-2 px-6 font-extrabold mb-10">ORDER NOW</button>
       </div>

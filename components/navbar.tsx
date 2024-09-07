@@ -38,7 +38,7 @@ export default function Navbar() {
         <div>
           <img
             src="/lolloinformatica.png"
-            className="w-20 rounded-full"></img>
+            className="w-20 shadow"></img>
         </div>
         <div className="flex items-center justify-center gap-5">
           {Buttons.map((item, index) => (

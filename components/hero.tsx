@@ -18,11 +18,13 @@ export default function Hero() {
         <h2 className="bg-grayback font-medium text-2xl w-fit p-3">Lorem ipsum dolor sit amet.</h2>
         <button className="bg-orange w-fit p-2 px-6 font-extrabold text-3xl">ORDER NOW</button>
       </div>
-      <div>
+      <div className="relative">
+      <img src="/white.webp" className="absolute left-[-160px] bottom-1/4 w-[300px] h-[300px] -z-10" />
+      <img src="/dark.webp" className="absolute right-[-160px] bottom-1/4 w-[300px] h-[300px] -z-10" />
         <img
           src="/controller.webp"
           alt="controller SCUF"
-          className="w-[600px] h-[600px]"
+          className="w-[600px] h-[600px] z-10"
         />
       </div>
     </div>
