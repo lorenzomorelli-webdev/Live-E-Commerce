@@ -14,11 +14,18 @@ export default function Products() {
       </div>
       <div
         id="Products"
-        className="bg-lightbrown flex flex-col items-center">
+        className="bg-lightbrown flex flex-col items-center relative -z-20">
+          <img src="/texture.webp" alt="" className="absolute top-0 left-0 opacity-15 -z-10 w-full h-full object-cover object-center" />
         <div className="flex gap-32  items-center justify-between px-60 my-10">
-          <div className="rounded-full w-48 h-48 bg-grayback"></div>
-          <div className="rounded-full w-80 h-80 bg-grayback"></div>
-          <div className="rounded-full w-48 h-48 bg-grayback"></div>
+          <img
+            src="/white.webp"
+            className="rounded-md w-48 h-48 bg-grayback"></img>
+          <img
+            src="/controller.webp"
+            className="rounded-md w-80 h-80 bg-grayback"></img>
+          <img
+            src="/dark.webp"
+            className="rounded-md w-48 h-48 bg-grayback"></img>
         </div>
         <button className="bg-orange w-fit p-2 px-6 font-extrabold mb-10">ORDER NOW</button>
       </div>
