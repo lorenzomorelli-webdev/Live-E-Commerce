@@ -1,6 +1,4 @@
-import { NextFont } from "next/dist/compiled/@next/font";
-
-export default function Hero({fontClassName}:{fontClassName:string}) {
+export default function Hero({ fontClassName }: { fontClassName: string }) {
   return (
     <div className="bg-lightbrown h-[77vh] flex items-center justify-between px-60 relative -z-20">
       <img

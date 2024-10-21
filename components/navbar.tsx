@@ -1,5 +1,4 @@
 import {
-  ArrowPathIcon,
   ChartPieIcon,
   CursorArrowRaysIcon,
   FingerPrintIcon,
