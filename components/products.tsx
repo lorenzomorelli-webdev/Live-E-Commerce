@@ -1,10 +1,9 @@
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
-import { handjet } from "@/app/page";
 
-export default function Products() {
+export default function Products({fontClassName}:{fontClassName:string}) {
   return (
     <div className="mb-16">
-      <div className={"my-3 flex flex-col items-center justify-center " + handjet.className}>
+      <div className={"my-3 flex flex-col items-center justify-center " + fontClassName}>
         <h2 className="font-semibold text-3xl">Scorri per il catalogo</h2>
         <button>
           <a href="#Products">
@@ -27,7 +26,7 @@ export default function Products() {
             src="/dark.webp"
             className="w-48 h-48 bg-grayback shadow"></img>
         </div>
-        <button className="bg-orange w-fit p-2 px-6 font-extrabold mb-10">ORDER NOW</button>
+        <button className={"bg-orange w-fit p-2 px-6 font-extrabold mb-10 text-2xl " + fontClassName}>ORDER NOW</button>
       </div>
     </div>
   );
