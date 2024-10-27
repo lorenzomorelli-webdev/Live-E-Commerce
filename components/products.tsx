@@ -1,7 +1,6 @@
 "use client";
 
 import { product } from "@/utlis/interfaces";
-import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   fontClassName: string;
@@ -25,9 +24,7 @@ export default function Products({ fontClassName, products }: Props) {
       <div className={"my-3 flex flex-col items-center justify-center " + fontClassName}>
         <h2 className="font-semibold text-3xl">Scorri per il catalogo</h2>
         <button>
-          <a href="#Products">
-            <ArrowDownCircleIcon className="h-9 w-9 text-darkbrown" />
-          </a>
+          <a href="#Products">D</a>
         </button>
       </div>
       <div

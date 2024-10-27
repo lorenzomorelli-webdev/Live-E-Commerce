@@ -1,30 +1,19 @@
-import {
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-} from "@heroicons/react/24/outline";
-
 const Buttons = [
   {
     name: "Home",
     href: "#Hero",
-    icon: ChartPieIcon,
   },
   {
     name: "Catalogo",
     href: "#Catalogo",
-    icon: CursorArrowRaysIcon,
   },
   {
     name: "Sponsor",
     href: "#Sponsor",
-    icon: FingerPrintIcon,
   },
   {
     name: "Traguardi",
     href: "#Traguardi",
-    icon: SquaresPlusIcon,
   },
 ];
 

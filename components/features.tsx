@@ -1,12 +1,10 @@
-import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/outline";
-
 export default function Features() {
   return (
     <div className="flex flex-col items-center justify-center my-14">
       <h2 className="pb-5 font-semibold text-3xl">COSA DICONO DI NOI</h2>
       <div className="flex items-center gap-9">
         <button>
-          <ArrowLeftCircleIcon className="h-9 w-9 text-darkbrown" />
+          C
         </button>
         <div className="bg-grayback p-2">
           <figure className="max-w-screen-md mx-auto text-center">
@@ -38,23 +36,10 @@ export default function Features() {
             </figcaption>
           </figure>
         </div>
-        <button>
-          <ArrowRightCircleIcon className="h-9 w-9 text-darkbrown" />
-        </button>
+        <button>A</button>
       </div>
       <div className="bg-darkbrown w-full mt-16 flex gap-8 items-center justify-center p-4">
-        <a href="#">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            x="0px"
-            y="0px"
-            width="64"
-            height="64"
-            fill="white"
-            viewBox="0 0 50 50">
-            <path d="M 16 1.3242188 L 15.5 1.6132812 L 9.5 5.0839844 L 9 5.3730469 L 9 5.9492188 L 9 33.660156 L 9 34.236328 L 9.5 34.525391 L 33.5 48.386719 L 34 48.675781 L 34.5 48.386719 L 40.5 44.916016 L 41 44.626953 L 41 44.050781 L 41 16.339844 L 41 15.763672 L 40.5 15.474609 L 16.5 1.6132812 L 16 1.3242188 z M 16 2.7714844 L 39.5 16.339844 L 34 19.515625 L 10.501953 5.9453125 L 16 2.7714844 z M 10.25 6.3789062 L 33.75 19.949219 L 33.751953 47.082031 L 26.25 42.751953 L 26.25 34.09375 L 28.875 35.609375 A 0.250025 0.250025 0 0 0 29.242188 35.451172 L 30.242188 31.410156 A 0.250025 0.250025 0 0 0 30.125 31.134766 L 26.25 28.896484 L 26.25 24.855469 L 29.875 26.949219 A 0.250025 0.250025 0 0 0 30.25 26.732422 L 30.25 22.113281 A 0.250025 0.250025 0 0 0 30.125 21.896484 L 25.125 19.009766 A 0.250025 0.250025 0 0 0 24.980469 18.976562 A 0.250025 0.250025 0 0 0 24.875 19.009766 L 21.875 20.742188 A 0.250025 0.250025 0 0 0 21.75 20.958984 L 21.75 26.298828 L 19.125 24.783203 A 0.250025 0.250025 0 0 0 18.75 25 L 18.75 29.619141 A 0.250025 0.250025 0 0 0 18.875 29.835938 L 21.75 31.496094 L 21.75 40.154297 L 10.25 33.515625 L 10.25 6.3789062 z M 39.75 16.773438 L 39.751953 43.908203 L 34.251953 47.082031 L 34.25 19.949219 L 39.75 16.773438 z M 25 19.515625 L 29.75 22.257812 L 29.75 26.298828 L 26.125 24.207031 A 0.250025 0.250025 0 0 0 25.75 24.423828 L 25.75 29.041016 A 0.250025 0.250025 0 0 0 25.875 29.257812 L 29.712891 31.472656 L 28.837891 35.009766 L 26.125 33.443359 A 0.250025 0.250025 0 0 0 25.75 33.660156 L 25.75 42.462891 L 22.25 40.443359 L 22.25 31.351562 A 0.250025 0.250025 0 0 0 22.125 31.134766 L 19.25 29.474609 L 19.25 25.433594 L 21.875 26.949219 A 0.250025 0.250025 0 0 0 22.25 26.732422 L 22.25 21.103516 L 25 19.515625 z"></path>
-          </svg>
-        </a>
+        <a href="#">B</a>
         <a href="#">
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,3 @@
-import { TrophyIcon, GlobeEuropeAfricaIcon, AcademicCapIcon } from "@heroicons/react/24/outline";
-
 export default function Footer() {
   return (
     <footer>
@@ -7,16 +5,13 @@ export default function Footer() {
         <h2 className="text-orange font-semibold text-2xl">TRAGUARDI</h2>
         <div className="flex text-grayback font-medium text-lg pt-6 gap-6 px-60">
           <h3 className="flex items-center gap-3">
-            <TrophyIcon className="h-24 w-24 text-orange" />
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore earum consectetur
             adipisci!
           </h3>
           <h3 className="flex items-center gap-3">
-            <GlobeEuropeAfricaIcon className="h-24 w-24 text-orange" />
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, consectetur molestias.
           </h3>
           <h3 className="flex items-center gap-3">
-            <AcademicCapIcon className="h-24 w-24 text-orange" />
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta minus et quae harum.
           </h3>
         </div>
