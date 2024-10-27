@@ -1,4 +1,5 @@
 export default function Hero({ fontClassName }: { fontClassName: string }) {
+
   return (
     <div className="bg-lightbrown h-[77vh] flex items-center justify-between px-60 relative -z-20">
       <img
@@ -14,7 +15,7 @@ export default function Hero({ fontClassName }: { fontClassName: string }) {
           superiore
         </h1>
         <h2 className="bg-grayback font-medium text-2xl w-fit p-3">Lorem ipsum dolor sit amet.</h2>
-        <button className="bg-orange w-fit p-2 px-6 font-extrabold text-3xl">ORDER NOW</button>
+        <button className="bg-orange w-fit p-2 px-6 font-extrabold text-3xl" onClick={test(5)}>ORDER NOW</button>
       </div>
       <div className="relative">
         <img
@@ -33,4 +34,10 @@ export default function Hero({ fontClassName }: { fontClassName: string }) {
       </div>
     </div>
   );
+}
+
+
+//stavo cercando di fare un test per capire come rendere interattivo il componente!
+function test(x:number):undefined{
+  console.log(x+1);
 }

@@ -3,6 +3,7 @@ import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
 import Products from "@/components/products";
+import { product } from "@/utlis/interfaces";
 
 import { Roboto } from "next/font/google";
 import { Handjet } from "next/font/google";
@@ -15,12 +16,19 @@ const roboto = Roboto({
 const handjet = Handjet({ subsets: ["latin"] });
 
 export default function Home() {
+  const products: product[] = [
+    { id: 1, name: "product 1", price: 9.99, image: "/white.webp" },
+    { id: 2, name: "product 2", price: 19.99, image: "/controller.webp" },
+    { id: 3, name: "product 3", price: 29.99, image: "/dark.webp" },
+    { id: 4, name: "product 3", price: 29.99, image: "/dark.webp" },
+  ];
+
   return (
     <>
       <main className={roboto.className}>
         <Navbar />
-        <Hero fontClassName={handjet.className}/>
-        <Products fontClassName={handjet.className}/>
+        <Hero fontClassName={handjet.className} />
+        <Products fontClassName={handjet.className} products={products} />
         <Features />
         <Footer />
       </main>
