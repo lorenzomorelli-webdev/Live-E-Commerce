@@ -4,3 +4,8 @@ export interface product {
     price: number;
     image: String;
 }
+
+export interface ProductProps {
+    fontClassName: string;
+    products: product[];
+  }
