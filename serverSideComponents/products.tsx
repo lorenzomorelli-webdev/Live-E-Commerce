@@ -1,11 +1,8 @@
+/*
 "use client";
 
-import { product, ProductProps } from "@/utlis/interfaces";
 import { useState } from "react";
 
-interface IProps {
-  props: ProductProps;
-}
 
 function removeItem(productsList: product[], productId: number): product[] {
   return productsList.filter((item) => item.id != productId);
@@ -59,4 +56,4 @@ export default function Products({ props }: IProps) {
   );
 }
 
-//tocca modificare l'onClick per farlo funzionare!
+*/
