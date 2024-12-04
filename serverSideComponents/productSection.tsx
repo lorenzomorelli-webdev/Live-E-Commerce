@@ -1,6 +1,7 @@
 import ScrollBarProduct from "@/clientSideComponents/scrollBarProduct";
 import { AllProduct, mapApiTagToEnum, ProductCategory } from "@/utils/interfaces";
 
+
 export default function ProductSection() {
   const responseAllProducts: AllProduct[] = [
     {
@@ -128,10 +129,30 @@ export default function ProductSection() {
           alt=""
           className="absolute top-0 left-0 -z-10 w-full h-full object-cover object-center"
         />
-        <ScrollBarProduct title={ProductCategory.Premium.toString()} filteredProducts={responseAllProducts.filter(item => item.tag == ProductCategory.Premium)} />
-        <ScrollBarProduct title={ProductCategory.Special.toString()} filteredProducts={responseAllProducts.filter(item => item.tag == ProductCategory.Special)} />
-        <ScrollBarProduct title={ProductCategory.Standard.toString()} filteredProducts={responseAllProducts.filter(item => item.tag == ProductCategory.Standard)} />
-        <ScrollBarProduct title={ProductCategory.Vintage.toString()} filteredProducts={responseAllProducts.filter(item => item.tag == ProductCategory.Vintage)} />
+        <ScrollBarProduct
+          title={ProductCategory.Premium.toString()}
+          filteredProducts={responseAllProducts.filter(
+            (item) => item.tag == ProductCategory.Premium
+          )}
+        />
+        <ScrollBarProduct
+          title={ProductCategory.Special.toString()}
+          filteredProducts={responseAllProducts.filter(
+            (item) => item.tag == ProductCategory.Special
+          )}
+        />
+        <ScrollBarProduct
+          title={ProductCategory.Standard.toString()}
+          filteredProducts={responseAllProducts.filter(
+            (item) => item.tag == ProductCategory.Standard
+          )}
+        />
+        <ScrollBarProduct
+          title={ProductCategory.Vintage.toString()}
+          filteredProducts={responseAllProducts.filter(
+            (item) => item.tag == ProductCategory.Vintage
+          )}
+        />
         <button className={"bg-orange w-fit p-2 px-6 font-extrabold mb-10 text-2xl"}>
           ORDER NOW
         </button>

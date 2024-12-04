@@ -2,7 +2,7 @@ export enum ProductCategory {
   Vintage = "Vintage",
   Premium = "Premium",
   Standard = "Standard",
-  Special = "Spacial",
+  Special = "Special",
 }
 
  export function mapApiTagToEnum(tag: string): ProductCategory{
