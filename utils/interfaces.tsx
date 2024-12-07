@@ -4,6 +4,12 @@ export enum ProductCategory {
   Standard = "Standard",
   Special = "Special",
 }
+export enum Modal {
+  Product = "Product",
+  Cart = "Cart",
+}
+
+//export type modalStatus = "open" | "close";
 
  export function mapApiTagToEnum(tag: string): ProductCategory{
   const tagMapping: { [key: string]: ProductCategory } = {
@@ -15,7 +21,7 @@ export enum ProductCategory {
   return tagMapping[tag]
 }
 
-export interface AllProduct {
+export interface Product {
   id: number;
   name: String;
   price: number;

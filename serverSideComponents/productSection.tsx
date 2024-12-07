@@ -1,9 +1,16 @@
-import ScrollBarProduct from "@/clientSideComponents/scrollBarProduct";
-import { AllProduct, mapApiTagToEnum, ProductCategory } from "@/utils/interfaces";
+"use client";
 
+import CartModal from "@/clientSideComponents/cartModal";
+import { CustomCarousel } from "@/clientSideComponents/customCarousel";
+import ProductModal from "@/clientSideComponents/productModal";
+import { Product, mapApiTagToEnum, ProductCategory, Modal } from "@/utils/interfaces";
+import { useState } from "react";
 
 export default function ProductSection() {
-  const responseAllProducts: AllProduct[] = [
+  /**
+   * Array fittizio con tutti i prodotti, successivamente tocca prenderloda un'api!
+   */
+  const ProductsArray: Product[] = [
     {
       id: 1,
       name: "Classic White",
@@ -111,7 +118,37 @@ export default function ProductSection() {
     },
   ];
 
-  //tocca capire come dividere questi in base alla categoria e poi passarli alla componente scrollBarProduct
+  /**
+   * Questi stati verranno gestiti da una funziona unica per centralizzare la logica!
+   */
+  const [openProductModal, setOpenProductModal] = useState<boolean>(false);
+  const [openCartModal, setOpenCartModal] = useState<boolean>(false);
+
+  /**
+   * Qua pure andrebbe fatta una funziona per gestire al meglio il prev e in caso aggiungere
+   */
+  const [cartContent, setCartContent] = useState<Product[]>([]);
+  const [productContent, setProductContent] = useState<Product>({
+    id: 1,
+    name: "test",
+    price: 99,
+    image: "test",
+    tag: ProductCategory.Premium,
+  });
+
+  /**
+   * utility function che mi permette di passare un solo parametro come props per interagire con tutte le modals
+   */
+  function setOpenModals(open: boolean, modal: Modal) {
+    switch (modal) {
+      case Modal.Cart:
+        setOpenCartModal(open);
+      case Modal.Product:
+        setOpenProductModal(open);
+      default:
+        return;
+    }
+  }
 
   return (
     <div className="mb-16">
@@ -123,40 +160,54 @@ export default function ProductSection() {
       </div>
       <div
         id="Products"
-        className="bg-lightbrown flex flex-col items-center relative opacity-85">
+        className="bg-lightbrown flex flex-col items-center relative opacity-85 gap-7 py-7">
         <img
           src="/texture.webp"
           alt=""
           className="absolute top-0 left-0 -z-10 w-full h-full object-cover object-center"
         />
-        <ScrollBarProduct
+        {/*
+          questa parte andrebbe automatizzata!
+        */}
+        <CustomCarousel
+          setOpenModals={setOpenModals}
           title={ProductCategory.Premium.toString()}
-          filteredProducts={responseAllProducts.filter(
-            (item) => item.tag == ProductCategory.Premium
-          )}
+          filteredProducts={ProductsArray.filter((item) => item.tag == ProductCategory.Premium)}
+          setProductContent={setProductContent}
         />
-        <ScrollBarProduct
-          title={ProductCategory.Special.toString()}
-          filteredProducts={responseAllProducts.filter(
-            (item) => item.tag == ProductCategory.Special
-          )}
+        <CustomCarousel
+          setOpenModals={setOpenModals}
+          title={ProductCategory.Premium.toString()}
+          filteredProducts={ProductsArray.filter((item) => item.tag == ProductCategory.Special)}
+          setProductContent={setProductContent}
         />
-        <ScrollBarProduct
-          title={ProductCategory.Standard.toString()}
-          filteredProducts={responseAllProducts.filter(
-            (item) => item.tag == ProductCategory.Standard
-          )}
+        <CustomCarousel
+          setOpenModals={setOpenModals}
+          title={ProductCategory.Premium.toString()}
+          filteredProducts={ProductsArray.filter((item) => item.tag == ProductCategory.Standard)}
+          setProductContent={setProductContent}
         />
-        <ScrollBarProduct
-          title={ProductCategory.Vintage.toString()}
-          filteredProducts={responseAllProducts.filter(
-            (item) => item.tag == ProductCategory.Vintage
-          )}
+        <CustomCarousel
+          setOpenModals={setOpenModals}
+          title={ProductCategory.Premium.toString()}
+          filteredProducts={ProductsArray.filter((item) => item.tag == ProductCategory.Vintage)}
+          setProductContent={setProductContent}
         />
         <button className={"bg-orange w-fit p-2 px-6 font-extrabold mb-10 text-2xl"}>
           ORDER NOW
         </button>
       </div>
+      <ProductModal
+        open={openProductModal}
+        setOpenModals={setOpenModals}
+        product={productContent}
+        setCart={setCartContent}
+      />
+      <CartModal
+        open={openCartModal}
+        setOpenModals={setOpenModals}
+        cart={cartContent}
+      />
     </div>
   );
 }
