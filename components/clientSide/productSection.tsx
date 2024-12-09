@@ -1,9 +1,15 @@
 "use client";
 
-import CartModal from "@/clientSideComponents/cartModal";
-import { CustomCarousel } from "@/clientSideComponents/customCarousel";
-import ProductModal from "@/clientSideComponents/productModal";
-import { Product, mapApiTagToEnum, ProductCategory, Modal, defaultProduct } from "@/utils/interfaces";
+import CartModal from "@/components/serverSide/cartModal";
+import { CustomCarousel } from "@/components/serverSide/customCarousel";
+import ProductModal from "@/components/serverSide/productModal";
+import {
+  Product,
+  mapApiTagToEnum,
+  ProductCategory,
+  Modal,
+  defaultProduct,
+} from "@/utils/interfaces";
 import { useState } from "react";
 
 export default function ProductSection() {

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import Navbar from "@/serverSideComponents/navbar";
+import Navbar from "@/components/serverSide/navbar";
 import { Handjet } from "next/font/google";
-import Footer from "@/serverSideComponents/footer";
+import Footer from "@/components/serverSide/footer";
 
 const handjet = Handjet({ subsets: ["latin"] });
 

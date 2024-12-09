@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import { Modal, Product } from "@/utils/interfaces";
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import {
