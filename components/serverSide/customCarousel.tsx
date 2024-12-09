@@ -14,7 +14,7 @@ export function CustomCarousel({
   setOpenModals,
   setProductContent,
 }: {
-  title: String;
+  title: string;
   filteredProducts: Product[];
   setOpenModals: (value: boolean, modal: Modal) => void;
   setProductContent: (value: Product) => void;

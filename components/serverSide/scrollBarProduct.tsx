@@ -4,7 +4,7 @@ export default function ScrollBarProduct({
   title,
   filteredProducts,
 }: {
-  title: String;
+  title: string;
   filteredProducts: Product[];
 }) {
   return (
