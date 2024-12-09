@@ -9,45 +9,56 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { Modal, Product } from "@/utils/interfaces";
+import { defaultProduct, Modal, Product } from "@/utils/interfaces";
 
 export default function ProductModal({
   open,
   setOpenModals,
   product,
   setCart,
+  setProduct,
 }: {
   open: boolean;
   setOpenModals: (value: boolean, modal: Modal) => void;
   product: Product;
   setCart: (value: Product[]) => void;
+  setProduct: (value: Product) => void;
 }) {
+  const handleClose = () => {
+    // Ritarda lo smontaggio per permettere l'animazione di chiusura
+    setProduct(defaultProduct); // 300ms corrisponde alla durata dell'animazione
+  };
+
   return (
     <Drawer open={open}>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>{product.name}</DrawerTitle>
           <DrawerDescription>
-            <img
-              src={product.image.toString()}
-              alt="imagine prodotto"
-              width="500"
-              height="300"
-            />
+            {product.image === "placeholder" ? (
+              <></>
+            ) : (
+              <img
+                src={product.image.toString()}
+                alt="imagine prodotto"
+                width="500"
+                height="300"
+              />
+            )}
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>
           <Button
             onClick={() => {
-              setOpenModals(false, Modal.Product);
-              setCart([product]);
+              handleClose();
+              setCart([product!]);
               setOpenModals(true, Modal.Cart);
             }}>
             ACQUISTA
           </Button>
           <Button
             variant="outline"
-            onClick={() => setOpenModals(false, Modal.Product)}>
+            onClick={() => handleClose()}>
             Cancel
           </Button>
         </DrawerFooter>

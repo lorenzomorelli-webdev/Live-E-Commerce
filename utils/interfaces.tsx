@@ -11,14 +11,14 @@ export enum Modal {
 
 //export type modalStatus = "open" | "close";
 
- export function mapApiTagToEnum(tag: string): ProductCategory{
+export function mapApiTagToEnum(tag: string): ProductCategory {
   const tagMapping: { [key: string]: ProductCategory } = {
-      "Vintage": ProductCategory.Vintage,
-      "Premium": ProductCategory.Premium,
-      "Standard": ProductCategory.Standard,
-      "Special": ProductCategory.Special,
+    Vintage: ProductCategory.Vintage,
+    Premium: ProductCategory.Premium,
+    Standard: ProductCategory.Standard,
+    Special: ProductCategory.Special,
   };
-  return tagMapping[tag]
+  return tagMapping[tag];
 }
 
 export interface Product {
@@ -28,3 +28,11 @@ export interface Product {
   image: String;
   tag: ProductCategory;
 }
+
+export const defaultProduct: Product = {
+  id: 999999,
+  name: "placeholder",
+  price: 999999,
+  image: "placeholder",
+  tag: ProductCategory.Premium,
+};

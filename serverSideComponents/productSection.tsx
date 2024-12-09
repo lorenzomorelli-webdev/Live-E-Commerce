@@ -3,7 +3,7 @@
 import CartModal from "@/clientSideComponents/cartModal";
 import { CustomCarousel } from "@/clientSideComponents/customCarousel";
 import ProductModal from "@/clientSideComponents/productModal";
-import { Product, mapApiTagToEnum, ProductCategory, Modal } from "@/utils/interfaces";
+import { Product, mapApiTagToEnum, ProductCategory, Modal, defaultProduct } from "@/utils/interfaces";
 import { useState } from "react";
 
 export default function ProductSection() {
@@ -121,20 +121,14 @@ export default function ProductSection() {
   /**
    * Questi stati verranno gestiti da una funziona unica per centralizzare la logica!
    */
-  const [openProductModal, setOpenProductModal] = useState<boolean>(false);
   const [openCartModal, setOpenCartModal] = useState<boolean>(false);
 
   /**
    * Qua pure andrebbe fatta una funziona per gestire al meglio il prev e in caso aggiungere
    */
   const [cartContent, setCartContent] = useState<Product[]>([]);
-  const [productContent, setProductContent] = useState<Product>({
-    id: 1,
-    name: "test",
-    price: 99,
-    image: "test",
-    tag: ProductCategory.Premium,
-  });
+  const [productContent, setProductContent] = useState<Product>(defaultProduct);
+  const openProductModal = productContent.id === 999999 ? false : true;
 
   /**
    * utility function che mi permette di passare un solo parametro come props per interagire con tutte le modals
@@ -143,8 +137,6 @@ export default function ProductSection() {
     switch (modal) {
       case Modal.Cart:
         setOpenCartModal(open);
-      case Modal.Product:
-        setOpenProductModal(open);
       default:
         return;
     }
@@ -199,9 +191,10 @@ export default function ProductSection() {
       </div>
       <ProductModal
         open={openProductModal}
-        setOpenModals={setOpenModals}
+        setOpenModals={setOpenModals} //per aprire l'altra modale non se stesso
         product={productContent}
         setCart={setCartContent}
+        setProduct={setProductContent}
       />
       <CartModal
         open={openCartModal}
