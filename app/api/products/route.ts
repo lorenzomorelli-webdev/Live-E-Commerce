@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
-import { PrismaClient, Product } from "@prisma/client";
-import Error from "next/error";
+import { PrismaClient } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/react-native.js";
 
 const prisma = new PrismaClient();
 
@@ -13,7 +13,7 @@ export async function GET() {
       },
     });
     return NextResponse.json(products, { status: 200 });
-  } catch (error) {
+  } catch {
     console.error("Error fetching products");
     return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 });
   } finally {
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(newProduct, { status: 201 });
-  } catch (error) {
+  } catch {
     console.error("Error creating product");
     return NextResponse.json({ error: "Failed to create product" }, { status: 500 });
   } finally {
@@ -59,9 +59,9 @@ export async function DELETE(req: NextRequest) {
     });
 
     return NextResponse.json(deletedProduct, { status: 200 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error deleting product");
-    if (error.code === "P2025") {
+    if (error instanceof PrismaClientKnownRequestError && error.code === "P2025") {
       // Gestisce il caso in cui l'elemento non esista
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
