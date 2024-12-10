@@ -25,7 +25,7 @@ export default function Navbar() {
       <nav className="flex items-center justify-between my-3 px-60">
         <div>
           <img
-            src="/lolloinformatica.png"
+            src="/lolloinformatica.webp"
             className="w-20 shadow"></img>
         </div>
         <div className="flex items-center justify-center gap-5">
