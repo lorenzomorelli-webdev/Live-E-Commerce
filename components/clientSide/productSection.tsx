@@ -3,129 +3,10 @@
 import CartModal from "@/components/serverSide/cartModal";
 import { CustomCarousel } from "@/components/serverSide/customCarousel";
 import ProductModal from "@/components/serverSide/productModal";
-import {
-  Product,
-  mapApiTagToEnum,
-  ProductCategory,
-  Modal,
-  defaultProduct,
-} from "@/utils/interfaces";
+import { Product, ProductCategory, Modal, defaultProduct } from "@/utils/interfaces";
 import { useState } from "react";
 
-export default function ProductSection() {
-  /**
-   * Array fittizio con tutti i prodotti, successivamente tocca prenderloda un'api!
-   */
-  const ProductsArray: Product[] = [
-    {
-      id: 1,
-      name: "Classic White",
-      price: 9.99,
-      image_url: "/white.webp",
-      tag: mapApiTagToEnum("Vintage"),
-    },
-    {
-      id: 2,
-      name: "Retro Controller",
-      price: 19.99,
-      image_url: "/controller.webp",
-      tag: mapApiTagToEnum("Vintage"),
-    },
-    {
-      id: 3,
-      name: "Dark Edition",
-      price: 29.99,
-      image_url: "/dark.webp",
-      tag: mapApiTagToEnum("Premium"),
-    },
-    {
-      id: 4,
-      name: "Light Mode",
-      price: 39.99,
-      image_url: "/white.webp",
-      tag: mapApiTagToEnum("Standard"),
-    },
-    {
-      id: 5,
-      name: "Stealth Black",
-      price: 49.99,
-      image_url: "/dark.webp",
-      tag: mapApiTagToEnum("Premium"),
-    },
-    {
-      id: 6,
-      name: "Classic Gray",
-      price: 12.99,
-      image_url: "/controller.webp",
-      tag: mapApiTagToEnum("Vintage"),
-    },
-    {
-      id: 7,
-      name: "Midnight Edition",
-      price: 44.99,
-      image_url: "/dark.webp",
-      tag: mapApiTagToEnum("Premium"),
-    },
-    {
-      id: 8,
-      name: "Frost White",
-      price: 34.99,
-      image_url: "/white.webp",
-      tag: mapApiTagToEnum("Standard"),
-    },
-    {
-      id: 9,
-      name: "Neon Burst",
-      price: 29.99,
-      image_url: "/controller.webp",
-      tag: mapApiTagToEnum("Special"),
-    },
-    {
-      id: 10,
-      name: "Shadow Edition",
-      price: 54.99,
-      image_url: "/dark.webp",
-      tag: mapApiTagToEnum("Premium"),
-    },
-    {
-      id: 11,
-      name: "Arctic White",
-      price: 22.99,
-      image_url: "/white.webp",
-      tag: mapApiTagToEnum("Standard"),
-    },
-    {
-      id: 12,
-      name: "Fusion Controller",
-      price: 39.99,
-      image_url: "/controller.webp",
-      tag: mapApiTagToEnum("Special"),
-    },
-    {
-      id: 13,
-      name: "Obsidian Black",
-      price: 59.99,
-      image_url: "/dark.webp",
-      tag: mapApiTagToEnum("Premium"),
-    },
-    {
-      id: 14,
-      name: "Snowy White",
-      price: 27.99,
-      image_url: "/white.webp",
-      tag: mapApiTagToEnum("Standard"),
-    },
-    {
-      id: 15,
-      name: "Galaxy Controller",
-      price: 33.99,
-      image_url: "/controller.webp",
-      tag: mapApiTagToEnum("Special"),
-    },
-  ];
-
-  
-
+export default function ProductSection({ productsArray }: { productsArray: Product[] }) {
   /**
    * Questi stati verranno gestiti da una funziona unica per centralizzare la logica!
    */
@@ -172,25 +53,25 @@ export default function ProductSection() {
         <CustomCarousel
           setOpenModals={setOpenModals}
           title={ProductCategory.Premium.toString()}
-          filteredProducts={ProductsArray.filter((item) => item.tag == ProductCategory.Premium)}
+          filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Premium)}
           setProductContent={setProductContent}
         />
         <CustomCarousel
           setOpenModals={setOpenModals}
           title={ProductCategory.Premium.toString()}
-          filteredProducts={ProductsArray.filter((item) => item.tag == ProductCategory.Special)}
+          filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Special)}
           setProductContent={setProductContent}
         />
         <CustomCarousel
           setOpenModals={setOpenModals}
           title={ProductCategory.Premium.toString()}
-          filteredProducts={ProductsArray.filter((item) => item.tag == ProductCategory.Standard)}
+          filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Standard)}
           setProductContent={setProductContent}
         />
         <CustomCarousel
           setOpenModals={setOpenModals}
           title={ProductCategory.Premium.toString()}
-          filteredProducts={ProductsArray.filter((item) => item.tag == ProductCategory.Vintage)}
+          filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Vintage)}
           setProductContent={setProductContent}
         />
         <button className={"bg-orange w-fit p-2 px-6 font-extrabold mb-10 text-2xl"}>
