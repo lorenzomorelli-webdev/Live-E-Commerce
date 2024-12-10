@@ -52,6 +52,7 @@ orm/**/migrations/
 misc/**/migrations/
 databases/**/migrations/
 experimental/**/*.db
+prisma/migrations
 .next
 .vscode/
 .nuxt

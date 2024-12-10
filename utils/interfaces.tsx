@@ -22,10 +22,10 @@ export function mapApiTagToEnum(tag: string): ProductCategory {
 }
 
 export interface Product {
-  id: number;
-  name: String;
+  id?: number;
+  name: string;
   price: number;
-  image: String;
+  image_url: string;
   tag: ProductCategory;
 }
 
@@ -33,6 +33,6 @@ export const defaultProduct: Product = {
   id: 999999,
   name: "placeholder",
   price: 999999,
-  image: "placeholder",
+  image_url: "placeholder",
   tag: ProductCategory.Premium,
 };

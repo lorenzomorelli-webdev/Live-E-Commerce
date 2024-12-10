@@ -33,11 +33,11 @@ export default function ProductModal({
         <DrawerHeader>
           <DrawerTitle>{product.name}</DrawerTitle>
           <DrawerDescription>
-            {product.image === "placeholder" ? (
+            {product.image_url === "placeholder" ? (
               <></>
             ) : (
               <img
-                src={product.image.toString()}
+                src={product.image_url.toString()}
                 alt="imagine prodotto"
                 width="500"
                 height="300"
