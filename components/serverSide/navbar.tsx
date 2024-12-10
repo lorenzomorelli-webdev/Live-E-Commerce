@@ -1,4 +1,3 @@
-import Image from "next/image";
 
 const Buttons = [
   {
@@ -26,9 +25,11 @@ export default function Navbar() {
     <header id="navbar">
       <nav className="flex items-center justify-between my-3 px-60">
         <div>
-          <Image
+          <img
             src="/lolloinformatica.webp"
-            className="w-20 shadow"
+            className="shadow"
+            width="80"
+            height="80"
             alt="logo"
           />
         </div>
