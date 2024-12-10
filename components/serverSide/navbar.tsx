@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Buttons = [
   {
     name: "Home",
@@ -24,9 +26,11 @@ export default function Navbar() {
     <header id="navbar">
       <nav className="flex items-center justify-between my-3 px-60">
         <div>
-          <img
+          <Image
             src="/lolloinformatica.webp"
-            className="w-20 shadow"></img>
+            className="w-20 shadow"
+            alt="logo"
+          />
         </div>
         <div className="flex items-center justify-center gap-5">
           {Buttons.map((item, index) => (

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Features() {
   return (
     <div className="flex flex-col items-center justify-center my-14">
@@ -24,7 +26,7 @@ export default function Features() {
               </p>
             </blockquote>
             <figcaption className="flex items-center justify-center mt-6 space-x-3 rtl:space-x-reverse">
-              <img
+              <Image
                 className="w-6 h-6 rounded-full"
                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
                 alt="profile picture"

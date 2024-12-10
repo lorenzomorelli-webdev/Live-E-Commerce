@@ -7,6 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Image from "next/image";
 
 export function CustomCarousel({
   title,
@@ -41,9 +42,9 @@ export function CustomCarousel({
                 }}>
                 <CardTitle className="py-2 text-center">{product.name}</CardTitle>
                 <CardContent className="flex flex-col aspect-square items-center justify-center py-2">
-                  <img
+                  <Image
                     src={product.image_url.toString()}
-                    className="w-full h-full bg-grayback shadow"></img>
+                    className="w-full h-full bg-grayback shadow" alt="controller product" />
                 </CardContent>
                 <CardDescription className="text-center text-2xl font-semibold pb-2">
                   <div>

@@ -8,6 +8,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { defaultProduct, Modal, Product } from "@/utils/interfaces";
+import Image from "next/image";
 
 export default function ProductModal({
   open,
@@ -36,9 +37,9 @@ export default function ProductModal({
             {product.image_url === "placeholder" ? (
               <></>
             ) : (
-              <img
+              <Image
                 src={product.image_url.toString()}
-                alt="imagine prodotto"
+                alt="product image"
                 width="500"
                 height="300"
               />

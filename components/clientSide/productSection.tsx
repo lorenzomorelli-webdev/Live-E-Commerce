@@ -41,14 +41,13 @@ export default function ProductSection({ productsArray }: { productsArray: Produ
       </div>
       <div
         id="Products"
-        className="bg-lightbrown flex flex-col items-center relative opacity-85 gap-7 py-7">
+        className="bg-grayback flex flex-col items-center relative opacity-85 gap-7 py-7">
+        {/*
         <img
           src="/texture.webp"
           alt=""
           className="absolute top-0 left-0 -z-10 w-full h-full object-cover object-center"
-        />
-        {/*
-          questa parte andrebbe automatizzata!
+        /> 
         */}
         <CustomCarousel
           setOpenModals={setOpenModals}

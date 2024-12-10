@@ -1,4 +1,5 @@
 import { Product } from "@/utils/interfaces";
+import Image from "next/image";
 
 export default function ScrollBarProduct({
   title,
@@ -16,9 +17,11 @@ export default function ScrollBarProduct({
           <p className="text-center text-darkbrown font-medium text-3xl">
             <b>{title}</b>
           </p>
-          <img
+          <Image
             src={item.image_url.toString()}
-            className="w-60 h-60 bg-grayback shadow"></img>
+            className="w-60 h-60 bg-grayback shadow"
+            alt="product image"
+          />
           <p className="text-center text-darkbrown text-2xl">
             <b>€{item.price}</b>
           </p>
