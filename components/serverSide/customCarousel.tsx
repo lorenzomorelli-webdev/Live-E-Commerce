@@ -1,4 +1,4 @@
-import { Modal, Product } from "@/utils/interfaces";
+import { Product } from "@/utils/interfaces";
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import {
   Carousel,
@@ -11,12 +11,10 @@ import {
 export function CustomCarousel({
   title,
   filteredProducts,
-  setOpenModals,
   setProductContent,
 }: {
   title: string;
   filteredProducts: Product[];
-  setOpenModals: (value: boolean, modal: Modal) => void;
   setProductContent: (value: Product) => void;
 }) {
   return (
@@ -35,15 +33,14 @@ export function CustomCarousel({
               className="basis-1/3 flex flex-row justify-center">
               <Card
                 className="w-[300px] hover:bg-orange hover:transition-colors cursor-pointer"
-                onClick={() => {
-                  setProductContent(product);
-                  setOpenModals(true, Modal.Product);
-                }}>
+                onClick={() => setProductContent(product)}>
                 <CardTitle className="py-2 text-center">{product.name}</CardTitle>
                 <CardContent className="flex flex-col aspect-square items-center justify-center py-2">
                   <img
                     src={product.image_url.toString()}
-                    className="w-full h-full bg-grayback shadow" alt="controller product" />
+                    className="w-full h-full bg-grayback shadow"
+                    alt="controller product"
+                  />
                 </CardContent>
                 <CardDescription className="text-center text-2xl font-semibold pb-2">
                   <div>

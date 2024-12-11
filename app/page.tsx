@@ -22,7 +22,7 @@ export default async function Home() {
     <>
       <main>
         <Hero />
-        <ProductSection productsArray={productsArray}/>
+        <ProductSection productsArray={productsArray} />
         <Features />
       </main>
     </>

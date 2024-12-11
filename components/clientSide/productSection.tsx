@@ -50,26 +50,22 @@ export default function ProductSection({ productsArray }: { productsArray: Produ
         /> 
         */}
         <CustomCarousel
-          setOpenModals={setOpenModals}
           title={ProductCategory.Premium.toString()}
           filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Premium)}
           setProductContent={setProductContent}
         />
         <CustomCarousel
-          setOpenModals={setOpenModals}
-          title={ProductCategory.Premium.toString()}
+          title={ProductCategory.Special.toString()}
           filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Special)}
           setProductContent={setProductContent}
         />
         <CustomCarousel
-          setOpenModals={setOpenModals}
-          title={ProductCategory.Premium.toString()}
+          title={ProductCategory.Standard.toString()}
           filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Standard)}
           setProductContent={setProductContent}
         />
         <CustomCarousel
-          setOpenModals={setOpenModals}
-          title={ProductCategory.Premium.toString()}
+          title={ProductCategory.Vintage.toString()}
           filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Vintage)}
           setProductContent={setProductContent}
         />

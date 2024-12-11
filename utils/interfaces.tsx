@@ -10,7 +10,6 @@ export enum Modal {
 }
 
 //export type modalStatus = "open" | "close";
-
 export function mapApiTagToEnum(tag: string): ProductCategory {
   const tagMapping: { [key: string]: ProductCategory } = {
     Vintage: ProductCategory.Vintage,
