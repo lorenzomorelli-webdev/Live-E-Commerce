@@ -6,7 +6,13 @@ import ProductModal from "@/components/serverSide/productModal";
 import { Product, ProductCategory, Modal, defaultProduct } from "@/utils/interfaces";
 import { useState } from "react";
 
-export default function ProductSection({ productsArray }: { productsArray: Product[] }) {
+export default function ProductSection({
+  id,
+  productsArray,
+}: {
+  id: string;
+  productsArray: Product[];
+}) {
   /**
    * Questi stati verranno gestiti da una funziona unica per centralizzare la logica!
    */
@@ -32,7 +38,7 @@ export default function ProductSection({ productsArray }: { productsArray: Produ
   }
 
   return (
-    <div className="mb-16">
+    <div id="Catalogo" className="mb-16">
       <div className={"my-3 flex flex-col items-center justify-center"}>
         <h2 className="font-semibold text-3xl">Scorri per il catalogo</h2>
         <button>

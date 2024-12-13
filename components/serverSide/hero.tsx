@@ -1,7 +1,8 @@
-
-export default function Hero() {
+export default function Hero({ id }: { id: string }) {
   return (
-    <div className="bg-lightbrown h-[77vh] flex items-center justify-between px-60 relative -z-20">
+    <div
+      id={id}
+      className="bg-lightbrown h-[77vh] flex items-center justify-between px-60 relative -z-20">
       <img
         src="/texture.webp"
         className="absolute top-0 left-0 w-full h-full opacity-15 object-cover object-center"

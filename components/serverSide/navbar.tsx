@@ -1,3 +1,4 @@
+import { Button } from "../ui/button";
 
 const Buttons = [
   {
@@ -35,14 +36,14 @@ export default function Navbar() {
         </div>
         <div className="flex items-center justify-center gap-5">
           {Buttons.map((item, index) => (
-            <a
-              key={index}
-              className={
-                "w-24 h-10 font-semibold flex items-center justify-center " +
-                (item.name === "Home" ? "bg-orange text-darkbrown" : "bg-lightbrown text-orange")
-              }
-              href={item.href}>
-              {item.name}
+            <a href={item.href} key={index}>
+              <Button
+                key={index}
+                className={
+                  "w-[100px] h-[46px] text-lg font-semibold flex items-center justify-center bg-lightbrown text-orange hover:bg-orange hover:text-darkbrown active:bg-orange active:text-darkbrown rounded-none"
+                }>
+                {item.name}
+              </Button>
             </a>
           ))}
         </div>
