@@ -1,60 +1,21 @@
-'use client'
-
 import Features from "@/components/serverSide/features";
 import Hero from "@/components/serverSide/hero";
 import ProductSection from "@/components/clientSide/productSection";
-import { mapApiTagToEnum, Product } from "@/utils/interfaces";
 import { PrismaClient } from "@prisma/client";
-import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
-import { useRouter } from "next/navigation";
+import { mapApiTagToEnum } from "@/utils/interfaces";
 
 const prisma = new PrismaClient();
 
-export default function Home() {
-  const [user, setUser] = useState<any>(null);
-  const router = useRouter();
+export default async function Home() {
+  // Prisma: caricamento prodotti lato server
+  const products = await prisma.product.findMany({
+    orderBy: { id: "asc" },
+  });
 
-  useEffect(() => {
-    // Funzione asincrona per recuperare la sessione
-    const fetchSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (session) {
-        setUser(session.user);
-      } else {
-        //router.push("/login");
-      }
-    };
-
-    fetchSession();
-  }, [router]);
-
-  // Chiamata al DB Prisma, che non è asincrona direttamente nel componente
-  const [productsArray, setProductsArray] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const products = await prisma.product.findMany({
-        orderBy: {
-          id: "asc",
-        },
-      });
-      setProductsArray(
-        products.map((product) => ({
-          ...product,
-          tag: mapApiTagToEnum(product.tag), // Adattamento del campo `tag`
-        }))
-      );
-    };
-
-    fetchProducts();
-  }, []);
-
-  if (user === null) {
-    return <p>Loading...</p>;
-  }
+  const productsArray = products.map((product) => ({
+    ...product,
+    tag: mapApiTagToEnum(product.tag),
+  }));
 
   return (
     <>
@@ -66,10 +27,6 @@ export default function Home() {
         />
         <Features />
       </main>
-      <div>
-        <h1>Welcome {user.email}</h1>
-        <button onClick={async () => await supabase.auth.signOut()}>Logout</button>
-      </div>
     </>
   );
 }

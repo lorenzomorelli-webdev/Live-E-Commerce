@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "@/components/serverSide/navbar";
 import { Handjet } from "next/font/google";
 import Footer from "@/components/serverSide/footer";
-import Providers from "./providers";
 
 const handjet = Handjet({ subsets: ["latin"] });
 
@@ -21,12 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${handjet.className} antialiased`}>
-        <Providers>
-          <Navbar />
-          {children}
-          <Footer />
-          <SpeedInsights />
-        </Providers>
+        <Navbar />
+        {children}
+        <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );
