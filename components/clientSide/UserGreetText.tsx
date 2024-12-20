@@ -4,6 +4,8 @@ import { createClient } from "@/utils/supabase/client";
 import React, { useEffect, useState } from "react";
 
 const UserGreetText = () => {
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [user, setUser] = useState<any>(null);
   const supabase = createClient();
   useEffect(() => {

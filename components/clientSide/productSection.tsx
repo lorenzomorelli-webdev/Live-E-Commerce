@@ -38,7 +38,7 @@ export default function ProductSection({
   }
 
   return (
-    <div id="Catalogo" className="mb-16">
+    <div id={id} className="mb-16">
       <div className={"my-3 flex flex-col items-center justify-center"}>
         <h2 className="font-semibold text-3xl">Scorri per il catalogo</h2>
         <button>

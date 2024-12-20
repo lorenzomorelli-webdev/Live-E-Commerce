@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signup } from "@/lib/auth-actions";
+import { signup } from "@/utils/auth-actions";
 
 export function SignUpForm() {
   return (
@@ -66,7 +66,7 @@ export function SignUpForm() {
         <div className="mt-4 text-center text-sm">
           Already have an account?{" "}
           <Link href="/login" className="underline">
-            Sign in
+            Log In
           </Link>
         </div>
       </CardContent>
