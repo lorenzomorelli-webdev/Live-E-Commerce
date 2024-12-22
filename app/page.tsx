@@ -1,12 +1,10 @@
-import Features from "@/components/serverSide/features";
-import Hero from "@/components/serverSide/hero";
-import ProductSection from "@/components/clientSide/productSection";
 import { PrismaClient } from "@prisma/client";
 import { mapApiTagToEnum } from "@/utils/interfaces";
-import UserGreetText from "@/components/clientSide/UserGreetText";
-import LoginButton from "@/components/clientSide/LoginLogoutButton";
-import Navbar from "@/components/serverSide/navbar";
-import Footer from "@/components/serverSide/footer";
+import Features from "@/app/(home)/components/features";
+import Footer from "@/app/(home)/components/footer";
+import Hero from "@/app/(home)/components/hero";
+import Navbar from "@/app/(navbar)/navbar";
+import ProductSection from "@/app/(home)/components/productSection";
 
 const prisma = new PrismaClient();
 
@@ -23,8 +21,6 @@ export default async function Home() {
 
   return (
     <main>
-      <UserGreetText />
-      <LoginButton />
       <Navbar />
       <Hero id="Hero" />
       <ProductSection

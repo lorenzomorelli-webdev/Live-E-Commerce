@@ -1,8 +1,8 @@
 "use client";
 
-import CartModal from "@/components/serverSide/cartModal";
-import { CustomCarousel } from "@/components/serverSide/customCarousel";
-import ProductModal from "@/components/serverSide/productModal";
+import CartModal from "@/app/(home)/components/cartModal";
+import { CustomCarousel } from "@/app/(home)/components/customCarousel";
+import ProductModal from "@/app/(home)/components/productModal";
 import { Product, ProductCategory, Modal, defaultProduct } from "@/utils/interfaces";
 import { useState } from "react";
 

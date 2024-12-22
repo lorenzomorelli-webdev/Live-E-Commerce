@@ -25,7 +25,7 @@ export function CustomCarousel({
         opts={{
           align: "center",
         }}
-        className="w-[80%]">
+        className="w-[88%]">
         <CarouselContent>
           {filteredProducts?.map((product) => (
             <CarouselItem

@@ -11,13 +11,12 @@
   "dependencies": {
     "@prisma/client": "^6.0.1",
     "@radix-ui/react-label": "^2.1.1",
-    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-slot": "^1.1.1",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.7",
     "@vercel/speed-insights": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cors": "^2.8.5",
     "depcheck": "^1.4.7",
     "embla-carousel-react": "^8.5.1",
     "lucide-react": "^0.462.0",
@@ -30,7 +29,6 @@
     "vaul": "^1.1.1"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
