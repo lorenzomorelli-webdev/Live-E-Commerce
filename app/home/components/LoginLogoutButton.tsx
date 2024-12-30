@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button } from "../../../components/ui/button";
+import { Button } from "../../../shadcn/ui/button";
 import { useRouter } from "next/navigation";
 import supabase from "@/utils/supabase/client";
 import { signout } from "@/utils/auth-actions";

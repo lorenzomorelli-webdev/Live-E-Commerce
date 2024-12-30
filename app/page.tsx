@@ -1,10 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 import { mapApiTagToEnum } from "@/utils/interfaces";
-import Features from "@/app/(home)/components/features";
-import Footer from "@/app/(home)/components/footer";
-import Hero from "@/app/(home)/components/hero";
-import Navbar from "@/app/(navbar)/navbar";
-import ProductSection from "@/app/(home)/components/productSection";
+import Features from "@/app/home/components/features";
+import Footer from "@/app/home/components/footer";
+import Hero from "@/app/home/components/hero";
+import Navbar from "@/app/navbar/navbar";
+import ProductSection from "@/app/home/components/productSection";
+import { AuthProvider } from "@/app/context/authContext";
+import { ModalProvider } from "@/app/context/modalContext";
+import GlobalModals from "@/app/modal/globalModal";
 
 const prisma = new PrismaClient();
 
@@ -20,15 +23,20 @@ export default async function Home() {
   }));
 
   return (
-    <main>
-      <Navbar />
-      <Hero id="Hero" />
-      <ProductSection
-        id="Catalogo"
-        productsArray={productsArray}
-      />
-      <Features />
-      <Footer />
-    </main>
+    <ModalProvider>
+      <AuthProvider>
+        <GlobalModals />
+        <main>
+          <Navbar />
+          <Hero id="Hero" />
+          <ProductSection
+            id="Catalogo"
+            productsArray={productsArray}
+          />
+          <Features />
+          <Footer />
+        </main>
+      </AuthProvider>
+    </ModalProvider>
   );
 }

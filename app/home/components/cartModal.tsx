@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shadcn/ui/button";
 import {
   Drawer,
   DrawerContent,
@@ -6,7 +6,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from "@/components/ui/drawer";
+} from "@/shadcn/ui/drawer";
 import { Modal, Product } from "@/utils/interfaces";
 
 export default function CartModal({
