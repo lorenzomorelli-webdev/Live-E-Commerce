@@ -1,6 +1,5 @@
 'use client'
 
-import { Product } from "@/utils/interfaces";
 import { Card, CardContent, CardTitle, CardDescription } from "@/shadcn/ui/card";
 import {
   Carousel,
@@ -10,6 +9,7 @@ import {
   CarouselPrevious,
 } from "@/shadcn/ui/carousel";
 import { useModal } from "@/app/context/modalContext";
+import { Product } from "@prisma/client";
 
 export function CustomCarousel({
   title,

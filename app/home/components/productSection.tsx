@@ -1,5 +1,6 @@
 import { CustomCarousel } from "@/app/home/components/customCarousel";
-import { Product, ProductCategory } from "@/utils/interfaces";
+import { ProductCategory } from "@/utils/interfaces";
+import { Product } from "@prisma/client";
 
 export default function ProductSection({
   id,

@@ -22,17 +22,15 @@ import {
   TableCell,
   TableFooter,
 } from "@/shadcn/ui/table";
-import { Product } from "@/utils/interfaces";
+import { useCart } from "../context/cartContext";
 
 const CartModal = () => {
-  const { currentModal, modalData, closeModal } = useModal();
+  const { currentModal, closeModal } = useModal();
 
   if (currentModal !== "cart") return null;
-  const cartItems = (modalData.cartItems as Product[]) || [];
+  const { cartItems, addToCart, getTotalPrice } = useCart();
   //qua tocca poi implementare il cartItem su supabase che avrà ache l'amount!
   //const total = cartItems.reduce((acc, item) => acc + item.price * item.amount, 0);
-
-  const total = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   return (
     <Drawer
@@ -68,9 +66,7 @@ const CartModal = () => {
                 </TableCell>
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell>{1}</TableCell>
-                <TableCell className="text-right">
-                  ${(item.price * 1).toFixed(2)}
-                </TableCell>
+                <TableCell className="text-right">${(item.price * 1).toFixed(2)}</TableCell>
               </TableRow>
             ))}
           </TableBody>

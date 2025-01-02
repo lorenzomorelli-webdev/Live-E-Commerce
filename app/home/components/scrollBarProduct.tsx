@@ -1,4 +1,4 @@
-import { Product } from "@/utils/interfaces";
+import { Product } from "@prisma/client";
 
 export default function ScrollBarProduct({
   title,
@@ -17,7 +17,7 @@ export default function ScrollBarProduct({
             <b>{title}</b>
           </p>
           <img
-            src={item.image.toString()}
+            src={item.image_url.toString()}
             className="w-60 h-60 bg-grayback shadow"
             alt="product image"
           />

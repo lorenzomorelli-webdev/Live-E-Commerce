@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Product } from "@prisma/client";
 import { mapApiTagToEnum } from "@/utils/interfaces";
 import Features from "@/app/home/components/features";
 import Footer from "@/app/home/components/footer";
@@ -13,7 +13,7 @@ const prisma = new PrismaClient();
 
 export default async function Home() {
   // Prisma: caricamento prodotti lato server
-  const products = await prisma.product.findMany({
+  const products: Product[] = await prisma.product.findMany({
     orderBy: { id: "asc" },
   });
 
@@ -23,8 +23,8 @@ export default async function Home() {
   }));
 
   return (
-    <ModalProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <ModalProvider>
         <GlobalModals />
         <main>
           <Navbar />
@@ -36,7 +36,7 @@ export default async function Home() {
           <Features />
           <Footer />
         </main>
-      </AuthProvider>
-    </ModalProvider>
+      </ModalProvider>
+    </AuthProvider>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useModal } from "@/app/context/modalContext";
-import { defaultProduct, Product } from "@/utils/interfaces";
+import { defaultProduct } from "@/utils/interfaces";
 import { Button } from "@/shadcn/ui/button";
 import {
   DrawerContent,
@@ -10,9 +10,11 @@ import {
   DrawerFooter,
   Drawer,
 } from "@/shadcn/ui/drawer";
+import { Product } from "@prisma/client";
 
 const ProductModal = () => {
   const { currentModal, modalData, closeModal, openModal } = useModal();
+  
 
   if (currentModal !== "product") return null;
 
