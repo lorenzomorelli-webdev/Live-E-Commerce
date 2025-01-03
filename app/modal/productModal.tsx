@@ -1,6 +1,5 @@
 import React from "react";
 import { useModal } from "@/app/context/modalContext";
-import { defaultProduct } from "@/utils/interfaces";
 import { Button } from "@/shadcn/ui/button";
 import {
   DrawerContent,
@@ -18,7 +17,7 @@ const ProductModal = () => {
 
   if (currentModal !== "product") return null;
 
-  const product: Product = modalData as Product || defaultProduct;
+  const product: Product = modalData as Product;
 
   return (
     <Drawer
@@ -30,7 +29,7 @@ const ProductModal = () => {
           <DrawerTitle>{product.name}</DrawerTitle>
           <DrawerDescription>
             <img
-              src={product.image_url.toString()}
+              src={product.imageUrl.toString()}
               alt="product image"
               width="500"
               height="300"

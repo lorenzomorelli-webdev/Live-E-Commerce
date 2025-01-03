@@ -17,7 +17,7 @@ export default function ScrollBarProduct({
             <b>{title}</b>
           </p>
           <img
-            src={item.image_url.toString()}
+            src={item.imageUrl.toString()}
             className="w-60 h-60 bg-grayback shadow"
             alt="product image"
           />

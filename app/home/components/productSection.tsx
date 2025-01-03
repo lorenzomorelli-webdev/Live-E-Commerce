@@ -1,5 +1,5 @@
 import { CustomCarousel } from "@/app/home/components/customCarousel";
-import { ProductCategory } from "@/utils/interfaces";
+import { ProductCategory } from "@prisma/client";
 import { Product } from "@prisma/client";
 
 export default function ProductSection({
@@ -27,19 +27,27 @@ export default function ProductSection({
          */}
         <CustomCarousel
           title={ProductCategory.Premium.toString()}
-          filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Premium)}
+          filteredProducts={productsArray.filter(
+            (item) => item.category == ProductCategory.Premium
+          )}
         />
         <CustomCarousel
           title={ProductCategory.Special.toString()}
-          filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Special)}
+          filteredProducts={productsArray.filter(
+            (item) => item.category == ProductCategory.Special
+          )}
         />
         <CustomCarousel
           title={ProductCategory.Standard.toString()}
-          filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Standard)}
+          filteredProducts={productsArray.filter(
+            (item) => item.category == ProductCategory.Standard
+          )}
         />
         <CustomCarousel
           title={ProductCategory.Vintage.toString()}
-          filteredProducts={productsArray.filter((item) => item.tag == ProductCategory.Vintage)}
+          filteredProducts={productsArray.filter(
+            (item) => item.category == ProductCategory.Vintage
+          )}
         />
         <button className={"bg-orange w-fit p-2 px-6 font-extrabold mb-10 text-2xl"}>
           ORDER NOW

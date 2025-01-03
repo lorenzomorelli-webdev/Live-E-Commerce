@@ -32,6 +32,7 @@ const CartModal = () => {
   //qua tocca poi implementare il cartItem su supabase che avrà ache l'amount!
   //const total = cartItems.reduce((acc, item) => acc + item.price * item.amount, 0);
 
+
   return (
     <Drawer
       open={true}
@@ -57,7 +58,7 @@ const CartModal = () => {
               <TableRow key={item.id}>
                 <TableCell>
                   <Image
-                    src={item.image_url}
+                    src={item.imageUrl}
                     alt="product image"
                     width={50}
                     height={50}

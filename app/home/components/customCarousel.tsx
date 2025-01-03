@@ -41,7 +41,7 @@ export function CustomCarousel({
                 <CardTitle className="py-2 text-center">{product.name}</CardTitle>
                 <CardContent className="flex flex-col aspect-square items-center justify-center py-2">
                   <img
-                    src={product.image_url.toString()}
+                    src={product.imageUrl.toString()}
                     className="w-full h-full bg-grayback shadow"
                     alt="controller product"
                   />
