@@ -58,23 +58,23 @@ const CartModal = () => {
               <TableRow key={item.id}>
                 <TableCell>
                   <Image
-                    src={item.imageUrl}
+                    src={item.product.imageUrl || "/placeholder.png"}
                     alt="product image"
                     width={50}
                     height={50}
                     className="rounded-md"
                   />
                 </TableCell>
-                <TableCell className="font-medium">{item.name}</TableCell>
-                <TableCell>{1}</TableCell>
-                <TableCell className="text-right">${(item.price * 1).toFixed(2)}</TableCell>
+                <TableCell className="font-medium">{item.product.name}</TableCell>
+                <TableCell>{item.product.description}</TableCell>
+                <TableCell className="text-right">${(item.product.price * item.quantity).toFixed(2)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
           <TableFooter>
             <TableRow>
               <TableCell colSpan={3}>Total</TableCell>
-              <TableCell className="text-right">${total.toFixed(2)}</TableCell>
+              <TableCell className="text-right">${getTotalPrice().toFixed(2)}</TableCell>
             </TableRow>
           </TableFooter>
         </Table>
