@@ -10,10 +10,13 @@ import {
   Drawer,
 } from "@/shadcn/ui/drawer";
 import { Product } from "@prisma/client";
+import { useCart } from "@/app/context/cartContext";
+import { useAuth } from "../context/authContext";
 
 const ProductModal = () => {
   const { currentModal, modalData, closeModal, openModal } = useModal();
-  
+  const { addToCart } = useCart();
+  const { getUserId } = useAuth();
 
   if (currentModal !== "product") return null;
 
@@ -42,6 +45,7 @@ const ProductModal = () => {
             onClick={() => {
               closeModal();
               openModal("cart");
+              addToCart(getUserId()!, product, 1);
             }}>
             ACQUISTA
           </Button>

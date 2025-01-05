@@ -12,8 +12,10 @@ import {
   DrawerDescription,
   DrawerFooter,
 } from "@/shadcn/ui/drawer";
-import { Table } from "lucide-react";
+
+import { useCart } from "../context/cartContext";
 import {
+  Table,
   TableCaption,
   TableHeader,
   TableRow,
@@ -22,16 +24,14 @@ import {
   TableCell,
   TableFooter,
 } from "@/shadcn/ui/table";
-import { useCart } from "../context/cartContext";
 
 const CartModal = () => {
   const { currentModal, closeModal } = useModal();
+  const { cartItems, addToCart, getTotalPrice } = useCart();
 
   if (currentModal !== "cart") return null;
-  const { cartItems, addToCart, getTotalPrice } = useCart();
   //qua tocca poi implementare il cartItem su supabase che avrà ache l'amount!
   //const total = cartItems.reduce((acc, item) => acc + item.price * item.amount, 0);
-
 
   return (
     <Drawer
@@ -55,7 +55,7 @@ const CartModal = () => {
           </TableHeader>
           <TableBody>
             {cartItems.map((item) => (
-              <TableRow key={item.id}>
+              <TableRow key={item.productId + item.userId}>
                 <TableCell>
                   <Image
                     src={item.product.imageUrl || "/placeholder.png"}
@@ -67,7 +67,9 @@ const CartModal = () => {
                 </TableCell>
                 <TableCell className="font-medium">{item.product.name}</TableCell>
                 <TableCell>{item.product.description}</TableCell>
-                <TableCell className="text-right">${(item.product.price * item.quantity).toFixed(2)}</TableCell>
+                <TableCell className="text-right">
+                  ${(item.product.price * item.quantity).toFixed(2)}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

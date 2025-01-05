@@ -2,6 +2,13 @@ import { PrismaClient, ProductCategory } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// Public URLs per le immagini
+const imageUrls = [
+  "https://afjrakkbravwzntlkveh.supabase.co/storage/v1/object/public/images/controller_1.webp",
+  "https://afjrakkbravwzntlkveh.supabase.co/storage/v1/object/public/images/controller_2.webp",
+  "https://afjrakkbravwzntlkveh.supabase.co/storage/v1/object/public/images/controller_3.webp",
+];
+
 // Funzione per generare dati casuali
 function getRandomCategory(): ProductCategory {
   const categories = [
@@ -13,6 +20,10 @@ function getRandomCategory(): ProductCategory {
   return categories[Math.floor(Math.random() * categories.length)];
 }
 
+function getRandomImageUrl(): string {
+  return imageUrls[Math.floor(Math.random() * imageUrls.length)];
+}
+
 function generateRandomProducts(count: number) {
   const products = [];
   for (let i = 0; i < count; i++) {
@@ -20,7 +31,7 @@ function generateRandomProducts(count: number) {
       name: `Product ${i + 1}`,
       description: `Description for Product ${i + 1}`,
       price: parseFloat((Math.random() * 200 + 20).toFixed(2)), // Prezzo casuale tra 20 e 220
-      imageUrl: `https://example.com/images/product-${i + 1}.jpg`, // URL fittizio
+      imageUrl: getRandomImageUrl(), // URL immagine casuale
       category: getRandomCategory(),
     });
   }

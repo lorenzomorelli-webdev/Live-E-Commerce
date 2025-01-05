@@ -7,10 +7,11 @@ import {
   removeFromCart as serverRemoveFromCart,
   getCart as serverGetCart,
 } from "@/app/actions/cart";
+import { Product } from "@prisma/client";
 
 interface CartContextType {
   cartItems: CartItemWithProduct[];
-  addToCart: (userId: string, item: { productId: number; quantity: number; price: number }) => void;
+  addToCart: (userId: string, product: Product, quantity: number) => void;
   removeFromCart: (userId: string, productId: number) => void;
   updateQuantity: (userId: string, productId: number, quantity: number) => void;
   clearCart: (userId: string) => void;
@@ -34,31 +35,29 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Aggiungere un prodotto al carrello
-  const addToCart = async (
-    userId: string,
-    item: { productId: number; quantity: number; price: number }
-  ) => {
+  const addToCart = async (userId: string, product: Product, quantity: number) => {
     // Aggiornamento ottimistico
     setCartItems((prev) => {
-      const existingItem = prev.find((cartItem) => cartItem.productId === item.productId);
+      const existingItem = prev.find((cartItem) => cartItem.productId === product.id);
       if (existingItem) {
         return prev.map((cartItem) =>
-          cartItem.productId === item.productId
-            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+          cartItem.productId === product.id
+            ? { ...cartItem, quantity: cartItem.quantity + quantity }
             : cartItem
         );
       }
+      //si che me le devo inventare ma il resto comunque si prende da input
       return [
         ...prev,
         {
-          id: Date.now(),
-          productId: item.productId,
-          userId,
-          quantity: item.quantity,
+          productId: product.id,
+          userId: userId,
+          quantity: quantity,
           product: {
-            id: item.productId,
-            name: "Nome prodotto temporaneo", // Placeholder fino a sincronizzazione
-            price: item.price,
+            name: product.name, // Placeholder fino a sincronizzazione
+            price: product.price, // Placeholder fino a sincronizzazione
+            description: product.description, // Placeholder fino a sincronizzazione
+            imageUrl: product.imageUrl, // Placeholder fino a sincronizzazione
           },
         },
       ];
@@ -66,7 +65,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       // Sincronizza con il server
-      await serverAddToCart(userId, item.productId, item.quantity);
+      await serverAddToCart(userId, product.id, quantity);
     } catch (error) {
       console.error("Errore durante l'aggiunta al carrello:", error);
       fetchCart(userId); // Ripristina lo stato in caso di errore

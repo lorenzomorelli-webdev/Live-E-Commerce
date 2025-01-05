@@ -22,6 +22,18 @@ export async function removeFromCart(userId: string, productId: number) {
 export async function getCart(userId: string): Promise<CartItemWithProduct[]> {
   return prisma.cartItem.findMany({
     where: { userId },
-    include: { product: true },
-  }) as unknown as CartItemWithProduct[];
+    select: {
+      userId: true,
+      productId: true,
+      quantity: true,
+      product: {
+        select: {
+          name: true,
+          price: true,
+          description: true,
+          imageUrl: true,
+        },
+      },
+    },
+  });
 }

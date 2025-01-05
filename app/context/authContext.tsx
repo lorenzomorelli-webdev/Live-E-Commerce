@@ -8,9 +8,10 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 // Tipizzazione del contesto
 export interface AuthContextType {
   user: User | null;
-  login: (formData: FormData) => void;
-  logout: () => void;
-  signup: (formData: FormData) => void;
+  login: (formData: FormData) => Promise<void>;
+  logout: () => Promise<void>;
+  signup: (formData: FormData) => Promise<void>;
+  getUserId: () => string | null;
 }
 
 // Creazione del contesto
@@ -34,26 +35,44 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   /**
    * Login - gestisce lo stato utente
    */
-  const login = (formData: FormData) => {
-    _login(formData);
+  const login = async (formData: FormData) => {
+    await _login(formData);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    setUser(user);
   };
 
   /**
    * Logout - aggiorna lo stato locale
    */
-  const logout = () => {
-    _signout();
+  const logout = async () => {
+    await _signout();
+    setUser(null);
   };
 
   /**
    * Signup - crea l'utente e aggiorna lo stato
    */
-  const signup = (formData: FormData) => {
-    _signup(formData);
+  const signup = async (formData: FormData) => {
+    await _signup(formData);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    setUser(user);
+  };
+
+  /**
+   * Ritorna l'ID dell'utente
+   */
+  const getUserId = () => {
+    return user ? user.id : null;
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, signup }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, login, logout, signup, getUserId }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
