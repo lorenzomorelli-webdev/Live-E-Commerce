@@ -1,12 +1,11 @@
+import Image from "next/image";
 
 export default function Features() {
   return (
     <div className="flex flex-col items-center justify-center my-14">
       <h2 className="pb-5 font-semibold text-3xl">COSA DICONO DI NOI</h2>
       <div className="flex items-center gap-9">
-        <button>
-          C
-        </button>
+        <button>C</button>
         <div className="bg-grayback p-2">
           <figure className="max-w-screen-md mx-auto text-center">
             <svg
@@ -25,7 +24,7 @@ export default function Features() {
               </p>
             </blockquote>
             <figcaption className="flex items-center justify-center mt-6 space-x-3 rtl:space-x-reverse">
-              <img
+              <Image
                 className="w-6 h-6 rounded-full"
                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
                 alt="profile picture"

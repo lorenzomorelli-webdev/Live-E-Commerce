@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Card, CardContent, CardTitle, CardDescription } from "@/shadcn/ui/card";
 import {
@@ -10,6 +10,7 @@ import {
 } from "@/shadcn/ui/carousel";
 import { useModal } from "@/app/context/modalContext";
 import { Product } from "@prisma/client";
+import Image from "next/image";
 
 export function CustomCarousel({
   title,
@@ -40,10 +41,10 @@ export function CustomCarousel({
                 }}>
                 <CardTitle className="py-2 text-center">{product.name}</CardTitle>
                 <CardContent className="flex flex-col aspect-square items-center justify-center py-2">
-                  <img
+                  <Image
                     src={product.imageUrl.toString()}
                     className="w-full h-full bg-grayback shadow"
-                    alt="controller product"
+                    alt={product.name}
                   />
                 </CardContent>
                 <CardDescription className="text-center text-2xl font-semibold pb-2">

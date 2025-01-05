@@ -7,8 +7,8 @@ type ModalType = "auth" | "cart" | "favorites" | "product";
 
 export interface ModalContextType {
   currentModal: ModalType | null;
-  modalData: any;
-  openModal: (type: ModalType, data?: any) => void;
+  modalData: unknown;
+  openModal: (type: ModalType, data?: unknown) => void;
   closeModal: () => void;
 }
 
@@ -18,9 +18,9 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
 // ModalProvider per avvolgere l'applicazione
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [currentModal, setCurrentModal] = useState<ModalType | null>(null);
-  const [modalData, setModalData] = useState<any>(null);
+  const [modalData, setModalData] = useState<unknown>(null);
 
-  const openModal = (type: ModalType, data?: any) => {
+  const openModal = (type: ModalType, data?: unknown) => {
     setCurrentModal(type);
     setModalData(data || null);
   };

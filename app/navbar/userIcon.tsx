@@ -7,7 +7,7 @@ import { useCart } from "@/app/context/cartContext";
 
 const UserIcons = () => {
   //devo capire meglio la differenza tra null e undefined e perchè poi mi obbliga a fare il cast
-  const { user, logout } = useAuth() as AuthContextType;
+  const { user } = useAuth() as AuthContextType;
   const { openModal } = useModal();
   const { fetchCart } = useCart();
 

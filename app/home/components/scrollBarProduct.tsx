@@ -1,4 +1,5 @@
 import { Product } from "@prisma/client";
+import Image from "next/image";
 
 export default function ScrollBarProduct({
   title,
@@ -16,7 +17,7 @@ export default function ScrollBarProduct({
           <p className="text-center text-darkbrown font-medium text-3xl">
             <b>{title}</b>
           </p>
-          <img
+          <Image
             src={item.imageUrl.toString()}
             className="w-60 h-60 bg-grayback shadow"
             alt="product image"

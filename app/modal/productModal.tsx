@@ -12,6 +12,7 @@ import {
 import { Product } from "@prisma/client";
 import { useCart } from "@/app/context/cartContext";
 import { useAuth } from "../context/authContext";
+import Image from "next/image";
 
 const ProductModal = () => {
   const { currentModal, modalData, closeModal, openModal } = useModal();
@@ -31,7 +32,7 @@ const ProductModal = () => {
         <DrawerHeader className="flex flex-col items-center">
           <DrawerTitle>{product.name}</DrawerTitle>
           <DrawerDescription>
-            <img
+            <Image
               src={product.imageUrl.toString()}
               alt="product image"
               width="500"

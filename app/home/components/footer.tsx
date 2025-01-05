@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -18,7 +19,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="bg-lightbrown flex justify-between px-60 py-10 -z-20 relative">
-        <img
+        <Image
           src="/texture.webp"
           className="absolute top-0 left-0 w-full h-full opacity-15 -z-10 object-cover object-center"
           alt="background"

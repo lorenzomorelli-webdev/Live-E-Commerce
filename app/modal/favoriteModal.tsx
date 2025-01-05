@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useModal } from "@/app/context/modalContext";
+import { CartItemWithProduct } from "@/utils/utils";
 
 const FavoriteModal = () => {
   const { currentModal, modalData, closeModal } = useModal();
@@ -12,8 +13,8 @@ const FavoriteModal = () => {
     <div className="modal favorite-modal">
       <h2>Preferiti</h2>
       <ul>
-        {modalData?.favorites?.map((item: any) => (
-          <li key={item.id}>{item.name}</li>
+        {(modalData as CartItemWithProduct[]).map((item: CartItemWithProduct) => (
+          <li key={item.productId}>{item.product.name}</li>
         ))}
       </ul>
       <button onClick={closeModal}>Chiudi</button>

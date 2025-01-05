@@ -108,7 +108,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   // Svuotare il carrello
   const clearCart = (userId: string) => {
     setCartItems([]); // Aggiornamento ottimistico
-    console.warn("Server-side clearing del carrello non implementato.");
+    console.warn("Server-side clearing del carrello non implementato." + userId);
   };
 
   // Calcolare il prezzo totale
