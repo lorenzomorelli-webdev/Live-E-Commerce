@@ -27,7 +27,7 @@ import {
 
 const CartModal = () => {
   const { currentModal, closeModal } = useModal();
-  const { cartItems, addToCart, getTotalPrice } = useCart();
+  const { cartItems, getTotalPrice } = useCart();
 
   if (currentModal !== "cart") return null;
   //qua tocca poi implementare il cartItem su supabase che avrà ache l'amount!

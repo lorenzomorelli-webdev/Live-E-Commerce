@@ -68,6 +68,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       await serverAddToCart(userId, product.id, quantity);
     } catch (error) {
       console.error("Errore durante l'aggiunta al carrello:", error);
+      console.log("userId", userId);
       fetchCart(userId); // Ripristina lo stato in caso di errore
     }
   };
