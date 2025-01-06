@@ -12,6 +12,7 @@ export default function Navbar() {
             className="rounded-full"
             width={60}
             height={60}
+            fill={false}
             alt="logo"
           />
         </div>

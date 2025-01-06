@@ -14,6 +14,7 @@ import { useCart } from "@/app/context/cartContext";
 import { useAuth } from "../context/authContext";
 import Image from "next/image";
 
+
 const ProductModal = () => {
   const { currentModal, modalData, closeModal, openModal } = useModal();
   const { addToCart } = useCart();
@@ -35,8 +36,9 @@ const ProductModal = () => {
             <Image
               src={product.imageUrl.toString()}
               alt="product image"
-              width="500"
-              height="300"
+              width={500}
+              height={300}
+              fill={false}
             />
           </DrawerDescription>
           <p>€{product.price}</p>

@@ -40,10 +40,11 @@ export function CustomCarousel({
                   openModal("product", product);
                 }}>
                 <CardTitle className="py-2 text-center">{product.name}</CardTitle>
-                <CardContent className="flex flex-col aspect-square items-center justify-center py-2">
+                <CardContent className="relative flex flex-col aspect-square items-center justify-center py-2">
                   <Image
                     src={product.imageUrl.toString()}
                     className="w-full h-full bg-grayback shadow"
+                    fill={true}
                     alt={product.name}
                   />
                 </CardContent>

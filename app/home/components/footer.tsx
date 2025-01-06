@@ -18,10 +18,11 @@ export default function Footer() {
           </h3>
         </div>
       </div>
-      <div className="bg-lightbrown flex justify-between px-60 py-10 -z-20 relative">
+      <div className="bg-lightbrown flex justify-between px-60 py-10 gap-10">
         <Image
           src="/texture.webp"
           className="absolute top-0 left-0 w-full h-full opacity-15 -z-10 object-cover object-center"
+          fill={true}
           alt="background"
         />
         <div>

@@ -2,16 +2,15 @@
 
 const nextConfig = {
   images: {
+    domains: ["afjrakkbravwzntlkveh.supabase.co"], // Consenti immagini dal dominio di Supabase
     remotePatterns: [
       {
         protocol: "https",
         hostname: "afjrakkbravwzntlkveh.supabase.co",
-        port: "",
-        pathname: "/storage/v1/object/public/images/**",
-        search: "",
+        pathname: "/storage/v1/object/public/images/**", // Matcha tutte le immagini nel bucket pubblico
       },
     ],
-    domains: ["afjrakkbravwzntlkveh.supabase.co"],
+    unoptimized: true, // Disabilita l'ottimizzazione automatica delle immagini
   },
 };
 

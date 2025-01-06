@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+
 import { useModal } from "@/app/context/modalContext";
 import { Button } from "@/shadcn/ui/button";
 import {
@@ -62,6 +63,7 @@ const CartModal = () => {
                     alt="product image"
                     width={50}
                     height={50}
+                    fill={false}
                     className="rounded-md"
                   />
                 </TableCell>

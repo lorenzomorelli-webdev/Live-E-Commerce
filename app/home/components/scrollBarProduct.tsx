@@ -1,6 +1,7 @@
 import { Product } from "@prisma/client";
 import Image from "next/image";
 
+
 export default function ScrollBarProduct({
   title,
   filteredProducts,
