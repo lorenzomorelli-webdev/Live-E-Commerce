@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import "@/app/globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import "./globals.css";
 import { Handjet } from "next/font/google";
+import GlobalModals from "@/app/modal/globalModal";
+import ProviderWrapper from "@/app/context/ProviderWrapper";
 
 const handjet = Handjet({ subsets: ["latin"] });
 
@@ -18,8 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${handjet.className} antialiased`}>
-        {children}
-        <SpeedInsights />
+        <ProviderWrapper>
+          <GlobalModals />
+          {children}
+          <SpeedInsights />
+        </ProviderWrapper>
       </body>
     </html>
   );
