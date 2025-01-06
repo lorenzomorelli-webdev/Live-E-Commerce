@@ -9,9 +9,85 @@ datasource db {
 }
 
 model Product {
-  id        Int    @id @default(autoincrement())
-  name      String
+  id           Int             @id @default(autoincrement())
+  name         String
+  price        Float
+  category     ProductCategory
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  imageUrl     String
+  description  String
+  CartItem     CartItem[]
+  FavoriteItem FavoriteItem[]
+  OrderItem    OrderItem[]
+}
+
+model User {
+  id        String         @id @default(cuid()) @map("id")
+  email     String         @unique @map("email")
+  name      String?
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+  cartItems CartItem[]
+  favorites FavoriteItem[]
+  orders    Order[]
+
+  @@map("auth.users")
+}
+
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  productId Int
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, productId]) // Definizione della chiave univoca
+}
+
+model FavoriteItem {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  productId Int
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  userId      String
+  totalAmount Float
+  status      OrderStatus @default(PENDING)
+  stripeId    String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  user        User        @relation(fields: [userId], references: [id])
+  orderItems  OrderItem[]
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int     @default(1)
   price     Float
-  image_url String
-  tag       String
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+enum ProductCategory {
+  Vintage
+  Premium
+  Standard
+  Special
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
 }

@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "utils/ImageLoader.js"  ],
   "exclude": [
     "node_modules"
   ]
