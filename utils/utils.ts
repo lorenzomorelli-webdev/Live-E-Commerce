@@ -1,11 +1,13 @@
-export interface CartItemWithProduct {
+export interface CartItem {
   userId: string;
   productId: number;
   quantity: number;
-  product: {
-    name: string;
-    price: number;
-    description: string; // Campi che ti servono da `Product`
-    imageUrl: string;
-  };
+  product: ProductCartItem;
+}
+
+export interface ProductCartItem {
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
 }

@@ -1,18 +1,23 @@
 "use client";
 
 import React, { createContext, useState, useContext, ReactNode } from "react";
-import { CartItemWithProduct } from "@/utils/utils";
+import { CartItem, ProductCartItem } from "@/utils/utils";
 import {
   addToCart as serverAddToCart,
   removeFromCart as serverRemoveFromCart,
   getCart as serverGetCart,
 } from "@/app/actions/cart";
-import { Product } from "@prisma/client";
 
 interface CartContextType {
-  cartItems: CartItemWithProduct[];
-  addToCart: (userId: string, product: Product, quantity: number) => void;
+  cartItems: CartItem[];
+  addToCart: (
+    userId: string,
+    productId: number,
+    product: ProductCartItem,
+    quantity: number
+  ) => void;
   removeFromCart: (userId: string, productId: number) => void;
+  removeSingleItemFromCart: (userId: string, productId: number) => void;
   updateQuantity: (userId: string, productId: number, quantity: number) => void;
   clearCart: (userId: string) => void;
   getTotalPrice: () => number;
@@ -22,10 +27,20 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItemWithProduct[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  const isValidUserId = (userId: string | null | undefined): boolean => {
+    if (!userId) {
+      console.warn("Invalid userId. Operation aborted.");
+      return false;
+    }
+    return true;
+  };
 
   // Recuperare il carrello dal backend
   const fetchCart = async (userId: string) => {
+    if (!isValidUserId(userId)) return;
+
     try {
       const serverCart = await serverGetCart(userId);
       setCartItems(serverCart);
@@ -35,51 +50,55 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Aggiungere un prodotto al carrello
-  const addToCart = async (userId: string, product: Product, quantity: number) => {
+  const addToCart = async (
+    userId: string,
+    productId: number,
+    product: ProductCartItem,
+    quantity: number
+  ) => {
+    if (!isValidUserId(userId)) return;
+
     // Aggiornamento ottimistico
     setCartItems((prev) => {
-      const existingItem = prev.find((cartItem) => cartItem.productId === product.id);
+      const existingItem = prev.find((cartItem) => cartItem.productId === productId);
       if (existingItem) {
         return prev.map((cartItem) =>
-          cartItem.productId === product.id
+          cartItem.productId === productId
             ? { ...cartItem, quantity: cartItem.quantity + quantity }
             : cartItem
         );
       }
-      //si che me le devo inventare ma il resto comunque si prende da input
       return [
         ...prev,
         {
-          productId: product.id,
-          userId: userId,
-          quantity: quantity,
+          productId,
+          userId,
+          quantity,
           product: {
-            name: product.name, // Placeholder fino a sincronizzazione
-            price: product.price, // Placeholder fino a sincronizzazione
-            description: product.description, // Placeholder fino a sincronizzazione
-            imageUrl: product.imageUrl, // Placeholder fino a sincronizzazione
+            name: product.name,
+            price: product.price,
+            description: product.description,
+            imageUrl: product.imageUrl,
           },
         },
       ];
     });
 
     try {
-      // Sincronizza con il server
-      await serverAddToCart(userId, product.id, quantity);
+      await serverAddToCart(userId, productId, quantity);
     } catch (error) {
       console.error("Errore durante l'aggiunta al carrello:", error);
-      console.log("userId", userId);
       fetchCart(userId); // Ripristina lo stato in caso di errore
     }
   };
 
   // Rimuovere un prodotto dal carrello
   const removeFromCart = async (userId: string, productId: number) => {
-    // Aggiornamento ottimistico
+    if (!isValidUserId(userId)) return;
+
     setCartItems((prev) => prev.filter((item) => item.productId !== productId));
 
     try {
-      // Sincronizza con il server
       await serverRemoveFromCart(userId, productId);
     } catch (error) {
       console.error("Errore durante la rimozione dal carrello:", error);
@@ -87,9 +106,32 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // Rimuovere un singolo elemento dal carrello
+  const removeSingleItemFromCart = async (userId: string, productId: number) => {
+    if (!isValidUserId(userId)) return;
+
+    setCartItems((prev) =>
+      prev
+        .map((item) =>
+          item.productId === productId
+            ? { ...item, quantity: Math.max(item.quantity - 1, 0) }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+
+    try {
+      await serverRemoveFromCart(userId, productId);
+    } catch (error) {
+      console.error("Errore durante il decremento del carrello:", error);
+      fetchCart(userId);
+    }
+  };
+
   // Aggiornare la quantità di un prodotto
   const updateQuantity = async (userId: string, productId: number, quantity: number) => {
-    // Aggiornamento ottimistico
+    if (!isValidUserId(userId)) return;
+
     setCartItems((prev) =>
       prev.map((item) =>
         item.productId === productId ? { ...item, quantity: Math.max(1, quantity) } : item
@@ -97,18 +139,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
 
     try {
-      // Sincronizza con il server
       await serverAddToCart(userId, productId, quantity);
     } catch (error) {
       console.error("Errore durante l'aggiornamento della quantità:", error);
-      fetchCart(userId); // Ripristina lo stato in caso di errore
+      fetchCart(userId);
     }
   };
 
   // Svuotare il carrello
   const clearCart = (userId: string) => {
-    setCartItems([]); // Aggiornamento ottimistico
-    console.warn("Server-side clearing del carrello non implementato." + userId);
+    if (!isValidUserId(userId)) return;
+
+    setCartItems([]);
+    console.warn("Server-side clearing del carrello non implementato.");
   };
 
   // Calcolare il prezzo totale
@@ -122,11 +165,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         cartItems,
         addToCart,
         removeFromCart,
+        removeSingleItemFromCart,
         updateQuantity,
         clearCart,
         getTotalPrice,
         fetchCart,
-      }}>
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

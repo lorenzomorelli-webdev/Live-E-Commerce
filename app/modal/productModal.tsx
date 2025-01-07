@@ -13,10 +13,10 @@ import { Product } from "@prisma/client";
 import { useCart } from "@/app/context/cartContext";
 import { useAuth } from "../context/authContext";
 import Image from "next/image";
-
+import { ProductCartItem } from "@/utils/utils";
 
 const ProductModal = () => {
-  const { currentModal, modalData, closeModal, openModal } = useModal();
+  const { currentModal, modalData, closeModal, switchModal } = useModal();
   const { addToCart } = useCart();
   const { getUserId } = useAuth();
 
@@ -46,9 +46,12 @@ const ProductModal = () => {
         <DrawerFooter>
           <Button
             onClick={() => {
-              closeModal();
-              openModal("cart");
-              addToCart(getUserId()!, product, 1);
+              if (getUserId()) {
+                switchModal("cart");
+                addToCart(getUserId()!, product.id, product as ProductCartItem, 1);
+              } else {
+                switchModal("auth");
+              }
             }}>
             ACQUISTA
           </Button>

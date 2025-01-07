@@ -25,10 +25,15 @@ import {
   TableCell,
   TableFooter,
 } from "@/shadcn/ui/table";
+import { useAuth } from "@/app/context/authContext";
 
 const CartModal = () => {
+  //implementing a better way to retrieve userId, a lot of context calls
+  const { getUserId } = useAuth();
+
   const { currentModal, closeModal } = useModal();
-  const { cartItems, getTotalPrice } = useCart();
+  const { cartItems, getTotalPrice, addToCart, removeFromCart, removeSingleItemFromCart } =
+    useCart();
 
   if (currentModal !== "cart") return null;
   //qua tocca poi implementare il cartItem su supabase che avrà ache l'amount!
@@ -68,7 +73,15 @@ const CartModal = () => {
                   />
                 </TableCell>
                 <TableCell className="font-medium">{item.product.name}</TableCell>
-                <TableCell>{item.product.description}</TableCell>
+                <TableCell>
+                  <Button onClick={() => removeSingleItemFromCart(getUserId()!, item.productId)}>
+                    -
+                  </Button>
+                  {item.quantity}
+                  <Button onClick={() => addToCart(getUserId()!, item.productId, item.product, 1)}>
+                    +
+                  </Button>{" "}
+                </TableCell>
                 <TableCell className="text-right">
                   ${(item.product.price * item.quantity).toFixed(2)}
                 </TableCell>
