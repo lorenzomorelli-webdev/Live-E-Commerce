@@ -24,7 +24,7 @@ const UserIcons = () => {
             size={30}
             className="cursor-pointer"
             onClick={() => {
-              fetchCart(user.id);
+              fetchCart();
               openModal("cart");
             }}
           />
