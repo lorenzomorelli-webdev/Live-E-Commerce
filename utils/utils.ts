@@ -1,13 +1,15 @@
+import { ProductCategory } from "@prisma/client";
+
 export interface CartItem {
-  userId: string;
-  productId: number;
   quantity: number;
-  product: ProductCartItem;
+  product: Product;
 }
 
-export interface ProductCartItem {
+export interface Product {
+  id: number;
   name: string;
   price: number;
   description: string;
   imageUrl: string;
+  category: ProductCategory;
 }

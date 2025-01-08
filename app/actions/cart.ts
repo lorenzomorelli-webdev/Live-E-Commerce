@@ -2,13 +2,15 @@
 
 import { PrismaClient } from "@prisma/client";
 import { CartItem } from "@/utils/utils";
+import { createClient } from "@/utils/supabase/server";
 
 const prisma = new PrismaClient();
-
 /**
  * Add or update a product in the cart.
  */
-export async function addToCart(userId: string, productId: number, quantity: number) {
+export async function addToCart(productId: number, quantity: number) {
+  const userId = await verifyUser();
+
   return prisma.cartItem.upsert({
     where: { userId_productId: { userId, productId } },
     update: { quantity: { increment: quantity } },
@@ -19,7 +21,9 @@ export async function addToCart(userId: string, productId: number, quantity: num
 /**
  * Decrement the quantity of a single cart item or remove it if the quantity is 1.
  */
-export async function removeSingleItemFromCart(userId: string, productId: number) {
+export async function removeSingleItemFromCart(productId: number) {
+  const userId = await verifyUser();
+
   // Retrieve the cart item to check its current quantity
   const cartItem = await prisma.cartItem.findUnique({
     where: { userId_productId: { userId, productId } },
@@ -46,7 +50,9 @@ export async function removeSingleItemFromCart(userId: string, productId: number
 /**
  * Remove all occurrences of a product from the cart.
  */
-export async function removeFromCart(userId: string, productId: number) {
+export async function removeFromCart(productId: number) {
+  const userId = await verifyUser();
+
   return prisma.cartItem.deleteMany({
     where: { userId, productId },
   });
@@ -55,11 +61,12 @@ export async function removeFromCart(userId: string, productId: number) {
 /**
  * Retrieve the cart with product details.
  */
-export async function getCart(userId: string): Promise<CartItem[]> {
+export async function getCart(): Promise<CartItem[]> {
+  const userId = await verifyUser();
+
   return prisma.cartItem.findMany({
     where: { userId },
     select: {
-      userId: true,
       productId: true,
       quantity: true,
       product: {
@@ -72,4 +79,13 @@ export async function getCart(userId: string): Promise<CartItem[]> {
       },
     },
   });
+}
+
+async function verifyUser(): Promise<string> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    throw new Error("Unauthorized");
+  }
+  return data.user.id;
 }

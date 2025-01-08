@@ -5,6 +5,7 @@ import { CartItem, ProductCartItem } from "@/utils/utils";
 import {
   addToCart as serverAddToCart,
   removeFromCart as serverRemoveFromCart,
+  removeSingleItemFromCart as serverRemoveSingleItemFromCart,
   getCart as serverGetCart,
 } from "@/app/actions/cart";
 
@@ -42,7 +43,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (!isValidUserId(userId)) return;
 
     try {
-      const serverCart = await serverGetCart(userId);
+      const serverCart = await serverGetCart();
       setCartItems(serverCart);
     } catch (error) {
       console.error("Errore durante il recupero del carrello:", error);
@@ -85,7 +86,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
 
     try {
-      await serverAddToCart(userId, productId, quantity);
+      await serverAddToCart(productId, quantity);
     } catch (error) {
       console.error("Errore durante l'aggiunta al carrello:", error);
       fetchCart(userId); // Ripristina lo stato in caso di errore
@@ -99,7 +100,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems((prev) => prev.filter((item) => item.productId !== productId));
 
     try {
-      await serverRemoveFromCart(userId, productId);
+      await serverRemoveFromCart(productId);
     } catch (error) {
       console.error("Errore durante la rimozione dal carrello:", error);
       fetchCart(userId); // Ripristina lo stato in caso di errore
@@ -121,7 +122,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
 
     try {
-      await serverRemoveFromCart(userId, productId);
+      await serverRemoveSingleItemFromCart(productId);
     } catch (error) {
       console.error("Errore durante il decremento del carrello:", error);
       fetchCart(userId);
@@ -139,7 +140,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
 
     try {
-      await serverAddToCart(userId, productId, quantity);
+      await serverAddToCart(productId, quantity);
     } catch (error) {
       console.error("Errore durante l'aggiornamento della quantità:", error);
       fetchCart(userId);
@@ -170,8 +171,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         clearCart,
         getTotalPrice,
         fetchCart,
-      }}
-    >
+      }}>
       {children}
     </CartContext.Provider>
   );

@@ -9,8 +9,8 @@ import {
   CarouselPrevious,
 } from "@/shadcn/ui/carousel";
 import { useModal } from "@/app/context/modalContext";
-import { Product } from "@prisma/client";
 import Image from "next/image";
+import { Product } from "@/utils/utils";
 
 export function CustomCarousel({
   title,

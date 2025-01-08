@@ -61,7 +61,7 @@ const CartModal = () => {
           </TableHeader>
           <TableBody>
             {cartItems.map((item) => (
-              <TableRow key={item.productId + item.userId}>
+              <TableRow key={item.productId}>
                 <TableCell>
                   <Image
                     src={item.product.imageUrl || "/placeholder.png"}
@@ -73,6 +73,11 @@ const CartModal = () => {
                   />
                 </TableCell>
                 <TableCell className="font-medium">{item.product.name}</TableCell>
+                {/**
+                 * REMEMBER:
+                 * thinking about the security implications of using this calls without server-side validation/checking about users
+                 * it can be used another user's id to manipulation other carts?
+                 */}
                 <TableCell>
                   <Button onClick={() => removeSingleItemFromCart(getUserId()!, item.productId)}>
                     -
@@ -81,6 +86,7 @@ const CartModal = () => {
                   <Button onClick={() => addToCart(getUserId()!, item.productId, item.product, 1)}>
                     +
                   </Button>{" "}
+                  <Button onClick={() => removeFromCart(getUserId()!, item.productId)}>x</Button>{" "}
                 </TableCell>
                 <TableCell className="text-right">
                   ${(item.product.price * item.quantity).toFixed(2)}
