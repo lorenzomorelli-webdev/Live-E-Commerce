@@ -46,7 +46,7 @@ const ProductModal = () => {
             onClick={() => {
               if (getUserId()) {
                 switchModal("cart");
-                addToCart(getUserId()!, product.id, product, 1);
+                addToCart(product);
               } else {
                 switchModal("auth");
               }

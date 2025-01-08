@@ -25,12 +25,9 @@ import {
   TableCell,
   TableFooter,
 } from "@/shadcn/ui/table";
-import { useAuth } from "@/app/context/authContext";
 
 const CartModal = () => {
   //implementing a better way to retrieve userId, a lot of context calls
-  const { getUserId } = useAuth();
-
   const { currentModal, closeModal } = useModal();
   const { cartItems, getTotalPrice, addToCart, removeFromCart, removeSingleItemFromCart } =
     useCart();
@@ -61,14 +58,13 @@ const CartModal = () => {
           </TableHeader>
           <TableBody>
             {cartItems.map((item) => (
-              <TableRow key={item.productId}>
+              <TableRow key={item.product.id}>
                 <TableCell>
                   <Image
-                    src={item.product.imageUrl || "/placeholder.png"}
-                    alt="product image"
+                    src={item.product.imageUrl}
+                    alt={item.product.name}
                     width={50}
                     height={50}
-                    fill={false}
                     className="rounded-md"
                   />
                 </TableCell>
@@ -79,14 +75,10 @@ const CartModal = () => {
                  * it can be used another user's id to manipulation other carts?
                  */}
                 <TableCell>
-                  <Button onClick={() => removeSingleItemFromCart(getUserId()!, item.productId)}>
-                    -
-                  </Button>
+                  <Button onClick={() => removeSingleItemFromCart(item.product)}>-</Button>
                   {item.quantity}
-                  <Button onClick={() => addToCart(getUserId()!, item.productId, item.product, 1)}>
-                    +
-                  </Button>{" "}
-                  <Button onClick={() => removeFromCart(getUserId()!, item.productId)}>x</Button>{" "}
+                  <Button onClick={() => addToCart(item.product)}>+</Button>{" "}
+                  <Button onClick={() => removeFromCart(item.product)}>x</Button>{" "}
                 </TableCell>
                 <TableCell className="text-right">
                   ${(item.product.price * item.quantity).toFixed(2)}

@@ -4,11 +4,17 @@ import { PrismaClient } from "@prisma/client";
 import { CartItem } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 
+/**
+ * these functions are used to interact with the cart in the database and
+ * they are used only in the cart context! 
+ * all the client side interactions with the cart are done in the cart context
+ */
+
 const prisma = new PrismaClient();
 /**
  * Add or update a product in the cart.
  */
-export async function addToCart(productId: number, quantity: number) {
+export async function addToCart(productId: number, quantity: number = 1) {
   const userId = await verifyUser();
 
   return prisma.cartItem.upsert({
@@ -21,7 +27,7 @@ export async function addToCart(productId: number, quantity: number) {
 /**
  * Decrement the quantity of a single cart item or remove it if the quantity is 1.
  */
-export async function removeSingleItemFromCart(productId: number) {
+export async function removeSingleItemFromCart(productId: number, quantity: number = 1) {
   const userId = await verifyUser();
 
   // Retrieve the cart item to check its current quantity
@@ -37,7 +43,7 @@ export async function removeSingleItemFromCart(productId: number) {
     // Decrement the quantity
     return prisma.cartItem.update({
       where: { userId_productId: { userId, productId } },
-      data: { quantity: { decrement: 1 } },
+      data: { quantity: { decrement: quantity } },
     });
   } else {
     // Remove the item if quantity is 1
@@ -67,14 +73,15 @@ export async function getCart(): Promise<CartItem[]> {
   return prisma.cartItem.findMany({
     where: { userId },
     select: {
-      productId: true,
       quantity: true,
       product: {
         select: {
+          id: true,
           name: true,
           price: true,
           description: true,
           imageUrl: true,
+          category: true,
         },
       },
     },
