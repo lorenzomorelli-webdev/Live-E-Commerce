@@ -3,7 +3,6 @@
 import { User as UserIcon, ShoppingBag, Heart, UserRoundX } from "lucide-react";
 import { useAuth, AuthContextType } from "@/app/context/authContext";
 import { useModal } from "@/app/context/modalContext";
-import { useCart } from "@/app/context/cartContext";
 
 const UserIcons = () => {
   //devo capire meglio la differenza tra null e undefined e perchè poi mi obbliga a fare il cast

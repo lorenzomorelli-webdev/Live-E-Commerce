@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useState, ReactNode, useContext } from "react";
-import { useCart } from "@/app/context/cartContext";
 
 // Tipizzazione dei modali
 type ModalType = "auth" | "cart" | "favorites" | "product";
