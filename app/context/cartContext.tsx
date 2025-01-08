@@ -1,33 +1,46 @@
 "use client";
 
 import React, { createContext, useState, useContext, ReactNode } from "react";
-import { CartItemWithProduct } from "@/utils/utils";
+import { CartItem, Product } from "@/utils/utils";
 import {
   addToCart as serverAddToCart,
   removeFromCart as serverRemoveFromCart,
+  removeSingleItemFromCart as serverRemoveSingleItemFromCart,
   getCart as serverGetCart,
 } from "@/app/actions/cart";
-import { Product } from "@prisma/client";
+import { useAuth } from "@/app/context/authContext";
 
 interface CartContextType {
-  cartItems: CartItemWithProduct[];
-  addToCart: (userId: string, product: Product, quantity: number) => void;
-  removeFromCart: (userId: string, productId: number) => void;
-  updateQuantity: (userId: string, productId: number, quantity: number) => void;
-  clearCart: (userId: string) => void;
+  cartItems: CartItem[];
+  addToCart: (product: Product, quantity?: number) => void;
+  removeFromCart: (product: Product) => void;
+  removeSingleItemFromCart: (product: Product, quantity?: number) => void;
+  updateQuantity: (product: Product, quantity: number) => void;
+  clearCart: () => void;
   getTotalPrice: () => number;
-  fetchCart: (userId: string) => void;
+  fetchCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItemWithProduct[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const { getUserId } = useAuth();
+
+  const isValidUserId = (): boolean => {
+    if (!getUserId()) {
+      console.warn("Invalid userId. Operation aborted.");
+      return false;
+    }
+    return true;
+  };
 
   // Recuperare il carrello dal backend
-  const fetchCart = async (userId: string) => {
+  const fetchCart = async () => {
+    if (!isValidUserId()) return;
+
     try {
-      const serverCart = await serverGetCart(userId);
+      const serverCart = await serverGetCart();
       setCartItems(serverCart);
     } catch (error) {
       console.error("Errore durante il recupero del carrello:", error);
@@ -35,80 +48,103 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Aggiungere un prodotto al carrello
-  const addToCart = async (userId: string, product: Product, quantity: number) => {
+  const addToCart = async (product: Product, quantity: number = 1) => {
+    if (!isValidUserId()) return;
+
     // Aggiornamento ottimistico
     setCartItems((prev) => {
-      const existingItem = prev.find((cartItem) => cartItem.productId === product.id);
+      const existingItem = prev.find((cartItem) => cartItem.product.id === product.id);
       if (existingItem) {
         return prev.map((cartItem) =>
-          cartItem.productId === product.id
+          cartItem.product.id === product.id
             ? { ...cartItem, quantity: cartItem.quantity + quantity }
             : cartItem
         );
       }
-      //si che me le devo inventare ma il resto comunque si prende da input
       return [
         ...prev,
         {
-          productId: product.id,
-          userId: userId,
-          quantity: quantity,
+          quantity,
           product: {
-            name: product.name, // Placeholder fino a sincronizzazione
-            price: product.price, // Placeholder fino a sincronizzazione
-            description: product.description, // Placeholder fino a sincronizzazione
-            imageUrl: product.imageUrl, // Placeholder fino a sincronizzazione
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            description: product.description,
+            imageUrl: product.imageUrl,
+            category: product.category,
           },
         },
       ];
     });
 
     try {
-      // Sincronizza con il server
-      await serverAddToCart(userId, product.id, quantity);
+      await serverAddToCart(product.id, quantity);
     } catch (error) {
       console.error("Errore durante l'aggiunta al carrello:", error);
-      console.log("userId", userId);
-      fetchCart(userId); // Ripristina lo stato in caso di errore
+      fetchCart(); // Ripristina lo stato in caso di errore
     }
   };
 
   // Rimuovere un prodotto dal carrello
-  const removeFromCart = async (userId: string, productId: number) => {
-    // Aggiornamento ottimistico
-    setCartItems((prev) => prev.filter((item) => item.productId !== productId));
+  const removeFromCart = async (product: Product) => {
+    if (!isValidUserId()) return;
+
+    setCartItems((prev) => prev.filter((item) => item.product.id !== product.id));
 
     try {
-      // Sincronizza con il server
-      await serverRemoveFromCart(userId, productId);
+      await serverRemoveFromCart(product.id);
     } catch (error) {
       console.error("Errore durante la rimozione dal carrello:", error);
-      fetchCart(userId); // Ripristina lo stato in caso di errore
+      fetchCart(); // Ripristina lo stato in caso di errore
+    }
+  };
+
+  // Rimuovere un singolo elemento dal carrello
+  const removeSingleItemFromCart = async (product: Product, quantity: number = 1) => {
+    if (!isValidUserId()) return;
+
+    setCartItems((prev) =>
+      prev
+        .map((item) =>
+          item.product.id === product.id
+            ? { ...item, quantity: Math.max(item.quantity - 1, 0) }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+
+    try {
+      await serverRemoveSingleItemFromCart(product.id, quantity);
+    } catch (error) {
+      console.error("Errore durante il decremento del carrello:", error);
+      fetchCart();
     }
   };
 
   // Aggiornare la quantità di un prodotto
-  const updateQuantity = async (userId: string, productId: number, quantity: number) => {
-    // Aggiornamento ottimistico
+  const updateQuantity = async (product: Product, quantity: number) => {
+    if (!isValidUserId()) return;
+
     setCartItems((prev) =>
       prev.map((item) =>
-        item.productId === productId ? { ...item, quantity: Math.max(1, quantity) } : item
+        item.product.id === product.id ? { ...item, quantity: Math.max(1, quantity) } : item
       )
     );
 
     try {
-      // Sincronizza con il server
-      await serverAddToCart(userId, productId, quantity);
+      await serverAddToCart(product.id, quantity);
     } catch (error) {
       console.error("Errore durante l'aggiornamento della quantità:", error);
-      fetchCart(userId); // Ripristina lo stato in caso di errore
+      fetchCart();
     }
   };
 
   // Svuotare il carrello
-  const clearCart = (userId: string) => {
-    setCartItems([]); // Aggiornamento ottimistico
-    console.warn("Server-side clearing del carrello non implementato." + userId);
+  const clearCart = () => {
+    if (!isValidUserId()) return;
+
+    setCartItems([]);
+    console.warn("Server-side clearing del carrello non implementato.");
   };
 
   // Calcolare il prezzo totale
@@ -122,6 +158,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         cartItems,
         addToCart,
         removeFromCart,
+        removeSingleItemFromCart,
         updateQuantity,
         clearCart,
         getTotalPrice,

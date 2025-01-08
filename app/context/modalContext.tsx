@@ -1,6 +1,7 @@
-'use client'
+"use client";
 
 import React, { createContext, useState, ReactNode, useContext } from "react";
+import { useCart } from "@/app/context/cartContext";
 
 // Tipizzazione dei modali
 type ModalType = "auth" | "cart" | "favorites" | "product";
@@ -10,6 +11,7 @@ export interface ModalContextType {
   modalData: unknown;
   openModal: (type: ModalType, data?: unknown) => void;
   closeModal: () => void;
+  switchModal: (type: ModalType, data?: unknown) => void;
 }
 
 // Creazione del contesto
@@ -30,8 +32,13 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setModalData(null);
   };
 
+  const switchModal = (type: ModalType, data?: unknown) => {
+    closeModal(); // Chiudi il modale attuale
+    openModal(type, data); // Apri il nuovo modale
+  };
+
   return (
-    <ModalContext.Provider value={{ currentModal, modalData, openModal, closeModal }}>
+    <ModalContext.Provider value={{ currentModal, modalData, openModal, closeModal, switchModal }}>
       {children}
     </ModalContext.Provider>
   );

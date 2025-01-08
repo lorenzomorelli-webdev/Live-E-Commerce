@@ -2,23 +2,46 @@
 
 import React from "react";
 import { useModal } from "@/app/context/modalContext";
-import { CartItemWithProduct } from "@/utils/utils";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/shadcn/ui/drawer";
+import { Button } from "@/shadcn/ui/button";
+import Image from "next/image";
 
 const FavoriteModal = () => {
-  const { currentModal, modalData, closeModal } = useModal();
+  const { currentModal, closeModal } = useModal();
 
   if (currentModal !== "favorites") return null;
 
   return (
-    <div className="modal favorite-modal">
-      <h2>Preferiti</h2>
-      <ul>
-        {(modalData as CartItemWithProduct[]).map((item: CartItemWithProduct) => (
-          <li key={item.productId}>{item.product.name}</li>
-        ))}
-      </ul>
-      <button onClick={closeModal}>Chiudi</button>
-    </div>
+    <Drawer
+      open={true}
+      onOpenChange={closeModal}
+      direction={"left"}>
+      <DrawerContent>
+        <DrawerHeader className="flex flex-col items-center">
+          <DrawerTitle>{"Favorite Modal"}</DrawerTitle>
+          <Image
+            src={"/placeholder.png"}
+            alt="product image"
+            width={500}
+            height={300}
+            fill={false}
+          />
+          <DrawerDescription>€{"test"}</DrawerDescription>
+          <DrawerDescription>{"test"}</DrawerDescription>
+        </DrawerHeader>
+        <DrawerFooter>
+          <Button>ACQUISTA</Button>
+          <Button>CHIUDI</Button>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 };
 

@@ -9,7 +9,6 @@ const UserIcons = () => {
   //devo capire meglio la differenza tra null e undefined e perchè poi mi obbliga a fare il cast
   const { user } = useAuth() as AuthContextType;
   const { openModal } = useModal();
-  const { fetchCart } = useCart();
 
   return (
     <div className="flex items-center justify-center gap-5">
@@ -24,7 +23,6 @@ const UserIcons = () => {
             size={30}
             className="cursor-pointer"
             onClick={() => {
-              fetchCart(user.id);
               openModal("cart");
             }}
           />
