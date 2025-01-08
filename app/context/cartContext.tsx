@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
 import { CartItem, Product } from "@/utils/utils";
 import {
   addToCart as serverAddToCart,
@@ -25,7 +25,14 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const { getUserId } = useAuth();
+  const { user, getUserId } = useAuth();
+
+  // Effetto per eseguire fetchCart solo dopo che lo stato user è stato popolato
+  useEffect(() => {
+    if (user) {
+      fetchCart();
+    }
+  }, [user]);
 
   const isValidUserId = (): boolean => {
     if (!getUserId()) {
