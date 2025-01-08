@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Product } from "@/utils/utils";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useCart } from "@/app/context/cartContext";
+import { useAuth } from "@/app/context/authContext";
 
 type CustomCardVariant = "default" | "sales" | "promo";
 
@@ -18,6 +19,7 @@ export function CustomCard({
 }) {
   const { openModal } = useModal();
   const { addToCart } = useCart();
+  const { getUserId } = useAuth();
 
   switch (variant) {
     case "default":
@@ -48,8 +50,12 @@ export function CustomCard({
               <ShoppingCart
                 className="w-6 h-6 cursor-pointer"
                 onClick={() => {
-                  openModal("cart", product);
-                  addToCart(product);
+                  if (getUserId()) {
+                    openModal("cart", product);
+                    addToCart(product);
+                  } else {
+                    openModal("auth");
+                  }
                 }}
               />
             </div>
