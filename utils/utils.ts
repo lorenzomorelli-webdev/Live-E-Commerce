@@ -1,5 +1,9 @@
 import { ProductCategory } from "@prisma/client";
 
+export interface FavoriteItem {
+  product: Product;
+}
+
 export interface CartItem {
   quantity: number;
   product: Product;
@@ -13,3 +17,12 @@ export interface Product {
   imageUrl: string;
   category: ProductCategory;
 }
+
+export const productSelect = {
+  id: true,
+  name: true,
+  price: true,
+  description: true,
+  imageUrl: true,
+  category: true,
+};
