@@ -1,12 +1,15 @@
 import { CartProvider } from "@/app/context/cartContext";
 import { AuthProvider } from "@/app/context/authContext";
 import { ModalProvider } from "@/app/context/modalContext";
+import { FavoritesProvider } from "./favoritesContext";
 
 export default function ProviderWrapper({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
       <CartProvider>
-        <ModalProvider>{children}</ModalProvider>
+        <FavoritesProvider>
+          <ModalProvider>{children}</ModalProvider>
+        </FavoritesProvider>
       </CartProvider>
     </AuthProvider>
   );

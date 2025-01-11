@@ -25,7 +25,11 @@ const UserIcons = () => {
               openModal("cart");
             }}
           />
-          <Heart size={30} />
+          <Heart
+            size={30}
+            className="cursor-pointer"
+            onClick={() => openModal("favorites")}
+          />
         </>
       ) : (
         <UserRoundX

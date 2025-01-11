@@ -12,9 +12,20 @@ import {
 } from "@/shadcn/ui/drawer";
 import { Button } from "@/shadcn/ui/button";
 import Image from "next/image";
+import { useFavorites } from "@/app/context/favoritesContext";
+import {
+  Table,
+  TableCaption,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/shadcn/ui/table";
 
 const FavoriteModal = () => {
   const { currentModal, closeModal } = useModal();
+  const { favoriteItems, removeFromFavorites } = useFavorites();
 
   if (currentModal !== "favorites") return null;
 
@@ -22,23 +33,45 @@ const FavoriteModal = () => {
     <Drawer
       open={true}
       onOpenChange={closeModal}
-      direction={"left"}>
+      direction={"right"}>
       <DrawerContent>
-        <DrawerHeader className="flex flex-col items-center">
-          <DrawerTitle>{"Favorite Modal"}</DrawerTitle>
-          <Image
-            src={"/placeholder.png"}
-            alt="product image"
-            width={500}
-            height={300}
-            fill={false}
-          />
-          <DrawerDescription>€{"test"}</DrawerDescription>
-          <DrawerDescription>{"test"}</DrawerDescription>
+        <DrawerHeader>
+          <DrawerTitle>Preferiti</DrawerTitle>
+          <DrawerDescription>Accedi per utilizzare tutte le funzionalità!</DrawerDescription>
         </DrawerHeader>
+        <Table>
+          <TableCaption>Lista dei tuoi prodotti preferiti</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Immagine</TableHead>
+              <TableHead>Nome</TableHead>
+              <TableHead>Prezzo</TableHead>
+              <TableHead>Azioni</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {favoriteItems.map((item) => (
+              <TableRow key={`favorite-${item.product.id}`}>
+                <TableCell>
+                  <Image
+                    src={item.product.imageUrl}
+                    alt={item.product.name}
+                    width={50}
+                    height={50}
+                    fill={false}
+                  />
+                </TableCell>
+                <TableCell>{item.product.name}</TableCell>
+                <TableCell>€{item.product.price}</TableCell>
+                <TableCell>
+                  <Button onClick={() => removeFromFavorites(item.product)}>Rimuovi</Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
         <DrawerFooter>
-          <Button>ACQUISTA</Button>
-          <Button>CHIUDI</Button>
+          <Button onClick={closeModal}>Chiudi</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

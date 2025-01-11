@@ -58,7 +58,7 @@ const CartModal = () => {
           </TableHeader>
           <TableBody>
             {cartItems.map((item) => (
-              <TableRow key={item.product.id}>
+              <TableRow key={`cart-${item.product.id}`}>
                 <TableCell>
                   <Image
                     src={item.product.imageUrl}

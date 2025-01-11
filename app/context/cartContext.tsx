@@ -27,21 +27,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const { user, getUserId } = useAuth();
 
-  // Effetto per eseguire fetchCart solo dopo che lo stato user è stato popolato
-  useEffect(() => {
-    if (user) {
-      fetchCart();
-    }
-  }, [user]);
-
-  const isValidUserId = (): boolean => {
-    if (!getUserId()) {
-      console.warn("Invalid userId. Operation aborted.");
-      return false;
-    }
-    return true;
-  };
-
   // Recuperare il carrello dal backend
   const fetchCart = async () => {
     if (!isValidUserId()) return;
@@ -52,6 +37,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Errore durante il recupero del carrello:", error);
     }
+  };
+
+  // Effetto per eseguire fetchCart solo dopo che lo stato user è stato popolato
+  useEffect(() => {
+    if (user) {
+      fetchCart();
+    }
+  }, [user, fetchCart]);
+
+  const isValidUserId = (): boolean => {
+    if (!getUserId()) {
+      console.warn("Invalid userId. Operation aborted.");
+      return false;
+    }
+    return true;
   };
 
   // Aggiungere un prodotto al carrello
@@ -72,14 +72,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         ...prev,
         {
           quantity,
-          product: {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            description: product.description,
-            imageUrl: product.imageUrl,
-            category: product.category,
-          },
+          product: product,
         },
       ];
     });
