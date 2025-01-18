@@ -44,7 +44,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (user) {
       fetchCart();
     }
-  }, [user, fetchCart]);
+  }, [user]);
 
   const isValidUserId = (): boolean => {
     if (!getUserId()) {

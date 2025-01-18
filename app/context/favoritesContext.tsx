@@ -39,7 +39,7 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     if (user) {
       fetchFavorites();
     }
-  }, [user, fetchFavorites]);
+  }, [user]);
 
   const isValidUserId = (): boolean => {
     if (!getUserId()) {
