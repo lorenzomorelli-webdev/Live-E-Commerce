@@ -1,7 +1,14 @@
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
-import { CartItem, Product } from "@/utils/utils";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+  useCallback,
+} from "react";
+import { CartItem, Product } from "@/lib/utils";
 import {
   addToCart as serverAddToCart,
   removeFromCart as serverRemoveFromCart,
@@ -25,10 +32,18 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const { user, getUserId } = useAuth();
+  const { user } = useAuth();
+
+  const isValidUserId = useCallback((): boolean => {
+    if (!user) {
+      console.warn("Invalid userId. Operation aborted.");
+      return false;
+    }
+    return true;
+  }, [user]);
 
   // Recuperare il carrello dal backend
-  const fetchCart = async () => {
+  const fetchCart = useCallback(async () => {
     if (!isValidUserId()) return;
 
     try {
@@ -37,22 +52,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Errore durante il recupero del carrello:", error);
     }
-  };
+  }, [isValidUserId]);
 
   // Effetto per eseguire fetchCart solo dopo che lo stato user è stato popolato
   useEffect(() => {
     if (user) {
       fetchCart();
     }
-  }, [user]);
+  }, [user, fetchCart]);
 
-  const isValidUserId = (): boolean => {
-    if (!getUserId()) {
-      console.warn("Invalid userId. Operation aborted.");
-      return false;
-    }
-    return true;
-  };
+  // Funzione per creare un oggetto CartItem
+  const createCartItem = (product: Product, quantity: number): CartItem => ({
+    quantity,
+    product: {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      imageUrl: product.imageUrl,
+      category: product.category,
+    },
+  });
 
   // Aggiungere un prodotto al carrello
   const addToCart = async (product: Product, quantity: number = 1) => {
@@ -68,13 +88,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             : cartItem
         );
       }
-      return [
-        ...prev,
-        {
-          quantity,
-          product: product,
-        },
-      ];
+      return [...prev, createCartItem(product, quantity)];
     });
 
     try {
@@ -107,7 +121,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       prev
         .map((item) =>
           item.product.id === product.id
-            ? { ...item, quantity: Math.max(item.quantity - 1, 0) }
+            ? { ...item, quantity: Math.max(item.quantity - quantity, 0) }
             : item
         )
         .filter((item) => item.quantity > 0)
@@ -126,15 +140,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (!isValidUserId()) return;
 
     setCartItems((prev) =>
-      prev.map((item) =>
-        item.product.id === product.id ? { ...item, quantity: Math.max(1, quantity) } : item
-      )
+      prev.map((item) => (item.product.id === product.id ? { ...item, quantity } : item))
     );
 
     try {
       await serverAddToCart(product.id, quantity);
     } catch (error) {
-      console.error("Errore durante l'aggiornamento della quantità:", error);
+      console.error("Errore durante l'aggiornamento della quantità nel carrello:", error);
       fetchCart();
     }
   };

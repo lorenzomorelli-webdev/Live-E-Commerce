@@ -1,8 +1,8 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
-import { createClient } from "@/utils/supabase/server";
-import { FavoriteItem, productSelect } from "@/utils/utils";
+import { createClient } from "@/lib/supabase/server";
+import { FavoriteItem, productSelect } from "@/lib/utils";
 
 const prisma = new PrismaClient();
 
