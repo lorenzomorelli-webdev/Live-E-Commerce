@@ -1,7 +1,14 @@
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
-import { FavoriteItem, Product } from "@/utils/utils";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+  useCallback,
+} from "react";
+import { FavoriteItem, Product } from "@/lib/utils";
 import {
   addToFavorites as serverAddToFavorites,
   removeFromFavorites as serverRemoveFromFavorites,
@@ -20,10 +27,18 @@ const FavoritesContext = createContext<FavoritesContextType | undefined>(undefin
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const [favoriteItems, setFavoriteItems] = useState<FavoriteItem[]>([]);
-  const { user, getUserId } = useAuth();
+  const { user } = useAuth();
+
+  const isValidUserId = useCallback((): boolean => {
+    if (!user) {
+      console.warn("Invalid userId. Operation aborted.");
+      return false;
+    }
+    return true;
+  }, [user]);
 
   // Recuperare i preferiti dal backend
-  const fetchFavorites = async () => {
+  const fetchFavorites = useCallback(async () => {
     if (!isValidUserId()) return;
 
     try {
@@ -32,7 +47,7 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Errore durante il recupero dei preferiti:", error);
     }
-  };
+  }, [isValidUserId]);
 
   // Effetto per eseguire fetchFavorites solo dopo che lo stato user è stato popolato
   useEffect(() => {
@@ -40,14 +55,6 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
       fetchFavorites();
     }
   }, [user, fetchFavorites]);
-
-  const isValidUserId = (): boolean => {
-    if (!getUserId()) {
-      console.warn("Invalid userId. Operation aborted.");
-      return false;
-    }
-    return true;
-  };
 
   // Aggiungere un prodotto ai preferiti
   const addToFavorites = async (product: Product) => {

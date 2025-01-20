@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import Features from "@/app/home/components/features";
-import Footer from "@/app/home/components/footer";
-import Hero from "@/app/home/components/hero";
-import Navbar from "@/app/navbar/navbar";
-import ProductSection from "@/app/home/components/productSection";
-import { Product } from "@/utils/utils";
+import Footer from "@/app/components/home/footer";
+import Hero from "@/app/components/home/hero";
+import { Product } from "@/lib/utils";
+import Features from "@/app/components/home/features";
+import ProductSection from "@/app/components/home/productSection";
+import Navbar from "@/app/components/navbar/navbar";
 
 const prisma = new PrismaClient();
 

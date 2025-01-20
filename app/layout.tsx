@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Handjet } from "next/font/google";
-import GlobalModals from "@/app/modal/globalModal";
+import GlobalModals from "@/app/components/modal/globalModal";
 import ProviderWrapper from "@/app/context/ProviderWrapper";
 
 const handjet = Handjet({ subsets: ["latin"] });
