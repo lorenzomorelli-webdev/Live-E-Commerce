@@ -4,9 +4,12 @@ const prisma = new PrismaClient();
 
 // Public URLs per le immagini
 const imageUrls = [
-  "https://afjrakkbravwzntlkveh.supabase.co/storage/v1/object/public/images/controller_1.webp",
-  "https://afjrakkbravwzntlkveh.supabase.co/storage/v1/object/public/images/controller_2.webp",
-  "https://afjrakkbravwzntlkveh.supabase.co/storage/v1/object/public/images/controller_3.webp",
+  "https://ppdlbmnbepqepsuxzjuh.supabase.co/storage/v1/object/public/images/controller1.webp",
+  "https://ppdlbmnbepqepsuxzjuh.supabase.co/storage/v1/object/public/images/controller2.webp",
+  "https://ppdlbmnbepqepsuxzjuh.supabase.co/storage/v1/object/public/images/controller3.webp",
+  "https://ppdlbmnbepqepsuxzjuh.supabase.co/storage/v1/object/public/images/controller4.webp",
+  "https://ppdlbmnbepqepsuxzjuh.supabase.co/storage/v1/object/public/images/controller5.webp",
+  "https://ppdlbmnbepqepsuxzjuh.supabase.co/storage/v1/object/public/images/controller6.webp",
 ];
 
 // Funzione per generare dati casuali
