@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Handjet } from "next/font/google";
 import GlobalModals from "@/app/components/modal/globalModal";
 import ProviderWrapper from "@/app/context/ProviderWrapper";
+import { Analytics } from "@vercel/analytics/react";
 
 const handjet = Handjet({ subsets: ["latin"] });
 
@@ -25,6 +26,8 @@ export default function RootLayout({
           {children}
           <SpeedInsights />
         </ProviderWrapper>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
